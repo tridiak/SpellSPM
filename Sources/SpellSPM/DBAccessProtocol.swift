@@ -74,7 +74,6 @@ protocol DBAccess : Actor {
 	/// - Returns: Spell metadata
 	func allFieldsFor(spell: String) throws -> SpellFields
 	
-	
 	/// Returns all spells for char class for passed spell level
 	/// - Parameters:
 	///   - charClass: char class

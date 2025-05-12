@@ -209,7 +209,6 @@ actor SpellDBAccess : DBAccess {
 			}
 			else {
 				let e = sqlite3_errcode(sqPtr)
-				let s = sqlite3_errstr(e)
 				throw SpellsDBEx.err(Int(e), sqlErrorString(err: e))
 			}
 			
@@ -350,101 +349,43 @@ actor SpellDBAccess : DBAccess {
 	}
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: - non-protocol
 	
 	fileprivate var bloodLines : Set<String>? = nil
 	
 	func getAllBloodlines() throws -> Set<String> {
 		if bloodLines != nil { return bloodLines! }
 		
-		let sqPtr : OpaquePointer = try openSpellDB()
-		// name is case-sensitive
-		let stmt = "SELECT bloodlines FROM spells WHERE bloodlines IS NOT NULL;"
+		let d = try getAllTextValues(field: "bloodlines")
+		bloodLines = Set(d.map { (spell: String, text: String?) in
+			return text ?? ""
+		}.filter { S in
+			return !S.isEmpty
+		})
 		
-		let prepStmt : OpaquePointer = try prepStatement(sqPtr: sqPtr, stmt: stmt)
-		
-		var names = Set<String>()
-		
-		var res = sqlite3_step(prepStmt)
-		while res == SQLITE_ROW {
-			
-			guard let n = sqlite3_column_text(prepStmt, 0) else {
-				res = sqlite3_errcode(sqPtr)
-				break
-			}
-			
-			let s = String(cString: n)
-			let a = s.split(separator: ",")
-			for r in a {
-				names.insert(r.trimmingCharacters(in: .whitespaces).lowercased())
-			}
-			
-			res = sqlite3_step(prepStmt)
-		}
-		
-		if res != SQLITE_DONE {
-			let s = sqlite3_errstr(res)
-			sqlite3_finalize(prepStmt)
-			sqlite3_close_v2(sqPtr)
-			throw SpellsDBEx.err(Int(res), s != nil ? String(cString: s!) : String(res))
-		}
-		
-		sqlite3_finalize(prepStmt)
-		sqlite3_close_v2(sqPtr)
-		
-		bloodLines = names
-		return names
+		return bloodLines!
 	}
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: - non-protocol
 	
 	fileprivate var domains : Set<String>? = nil
 	
 	func getAllDomains() throws -> Set<String> {
 		if domains != nil { return domains! }
 		
-		let sqPtr : OpaquePointer = try openSpellDB()
-		// name is case-sensitive
-		let stmt = "SELECT domains FROM spells WHERE domains IS NOT NULL;"
+		let d = try getAllTextValues(field: "domains")
+		domains = Set( d.map({ (spell: String, text: String?) in
+			return text ?? ""
+		}).filter({ S in
+			return !S.isEmpty
+		})  )
 		
-		let prepStmt : OpaquePointer = try prepStatement(sqPtr: sqPtr, stmt: stmt)
-		
-		var names = Set<String>()
-		
-		var res = sqlite3_step(prepStmt)
-		while res == SQLITE_ROW {
-			
-			guard let n = sqlite3_column_text(prepStmt, 0) else {
-				res = sqlite3_errcode(sqPtr)
-				break
-			}
-			
-			let s = String(cString: n)
-			let a = s.split(separator: ",")
-			for r in a {
-				names.insert(r.trimmingCharacters(in: .whitespaces).lowercased())
-			}
-			
-			res = sqlite3_step(prepStmt)
-		}
-		
-		if res != SQLITE_DONE {
-			let s = sqlite3_errstr(res)
-			sqlite3_finalize(prepStmt)
-			sqlite3_close_v2(sqPtr)
-			throw SpellsDBEx.err(Int(res), s != nil ? String(cString: s!) : String(res))
-		}
-		
-		sqlite3_finalize(prepStmt)
-		sqlite3_close_v2(sqPtr)
-		
-		domains = names
-		return names
+		return domains!
 	}
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: -
 	
 	fileprivate var spellFields : [String:SpellFields] = [:]
 	
@@ -513,7 +454,7 @@ actor SpellDBAccess : DBAccess {
 	
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: - non-protocol
 	
 	fileprivate var spellsForLevel : [UInt8:Set<String>] = [:]
 	
@@ -563,7 +504,7 @@ actor SpellDBAccess : DBAccess {
 	}
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: - non-protocol
 	fileprivate var levelForSpellCache : [String:UInt8] = [:]
 	
 	/// Returns spell level of spell determined by a specific class order.
@@ -614,6 +555,7 @@ actor SpellDBAccess : DBAccess {
 		}
 	}
 	
+	// non-protocol
 	// Key is class name + spell name
 	fileprivate var levelForSpellClass : [String:UInt8] = [:]
 	
@@ -668,7 +610,7 @@ actor SpellDBAccess : DBAccess {
 	}
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: -
 	fileprivate struct CCLevel : Hashable {
 		let cc : CharClass
 		let lvl : UInt8
@@ -767,7 +709,7 @@ actor SpellDBAccess : DBAccess {
 	}
 	
 	//--------------------------------------
-	// MARK:-
+	// MARK: - non-protocol
 	
 	func clearCaches() {
 		spellsForCC.removeAll()
