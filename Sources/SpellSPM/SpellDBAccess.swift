@@ -17,29 +17,24 @@ actor SpellDBAccess : DBAccess {
 		
 		var dir : ObjCBool = false
 		if !FileManager.default.fileExists(atPath: dbPath, isDirectory: &dir) {
-			throw SpellsEx.databaseMissing
+			throw SpellsDBEx.databaseMissing
 		}
 		if !dir.boolValue {
-			throw SpellsEx.invalidResourcesFile
+			throw SpellsDBEx.invalidResourcesFile
 		}
 	}
 	
 	/// Use built-in DB.
 	init() throws {
 		guard let url = Bundle.module.url(forResource: "spellDBv3", withExtension: "db") else {
-			throw SpellsEx.databaseMissing
+			throw SpellsDBEx.databaseMissing
 		}
 		dbPath = url.path()
 	}
 	
 	fileprivate var dbPath : String
 	
-	enum SpellsDBEx : Error, Equatable {
-		case err(Int, String)
-		case noSuchSpell(String)
-		case notAnInt
-		case notAString
-	}
+	
 	
 	fileprivate func openSpellDB(_ write: Bool = false) throws -> OpaquePointer {
 		var sqPtr : OpaquePointer? = nil
