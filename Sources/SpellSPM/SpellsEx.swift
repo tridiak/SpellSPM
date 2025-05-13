@@ -7,7 +7,6 @@
 
 import Foundation
 
-// This is specific to DB queries.
 enum SpellsDBEx : Error, Equatable {
 	case invalidResourcesFile
 	case databaseMissing

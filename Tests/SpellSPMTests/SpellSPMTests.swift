@@ -22,7 +22,7 @@ import Testing
 	#expect(!schoolInts.isEmpty)
 	print(schoolInts[..<25])
 	
-	await #expect(throws: SpellDBAccess.SpellsDBEx.notAString) {
+	await #expect(throws: SpellsDBEx.notAString) {
 		try await dba.getAllTextValues(field: "school")
 	}
 	

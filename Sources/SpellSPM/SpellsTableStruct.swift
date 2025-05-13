@@ -523,29 +523,29 @@ struct SpellFields {
 					material
 				case .focus:
 					focus
-				case .divine_focus:
+				case .divineFocus:
 					divFocus
-				case .gold_cost:
+				case .goldCost:
 					cost
 				case .dismissible:
 					dismissible
 				case .shapeable:
 					shapeable
-				case .casting_time:
+				case .castingTime:
 					ct
-				case .ct_standard:
+				case .ctStandard:
 					ct_std
-				case .ct_swift:
+				case .ctSwift:
 					ct_swf
-				case .ct_immediate:
+				case .ctImmediate:
 					ct_immed
-				case .ct_free:
+				case .ctFree:
 					ct_free
-				case .ct_full_round:
+				case .ctFullRound:
 					ct_fullRd
-				case .ct_minutes:
+				case .ctMinutes:
 					ct_min
-				case .ct_hours:
+				case .ctHours:
 					ct_hours
 				case .sorcerer:
 					sor
@@ -623,13 +623,13 @@ struct SpellFields {
 					force
 				case .good:
 					good
-				case .language_dependent:
+				case .languageDependent:
 					language_dependent
 				case .lawful:
 					lawful
 				case .light:
 					light
-				case .mind_affecting:
+				case .mindAffecting:
 					mind_affecting
 				case .pain:
 					pain
@@ -645,37 +645,37 @@ struct SpellFields {
 					mythic
 				case .SR:
 					SR
-				case .sr_no:
+				case .srNo:
 					sr_no
-				case .sr_yes:
+				case .srYes:
 					sr_yes
-				case .sr_harmless:
+				case .srHarmless:
 					sr_harmless
-				case .sr_object:
+				case .srObject:
 					sr_object
-				case .sr_see_TEXT:
+				case .srSeeText:
 					sr_text
 				case .saves:
 					saves
-				case .sv_fort_negates:
+				case .svFortNegates:
 					fortNeg
-				case .sv_fort_partial:
+				case .svFortPartial:
 					fortPart
-				case .sv_fort_half:
+				case .svFortHalf:
 					fortHalf
-				case .sv_ref_negates:
+				case .svRefNegates:
 					refNeg
-				case .sv_ref_partial:
+				case .svRefPartial:
 					refPart
-				case .sv_ref_half:
+				case .svRefHalf:
 					refHalf
-				case .sv_will_negates:
+				case .svWillNegates:
 					willNeg
-				case .sv_will_partial:
+				case .svWillPartial:
 					willPart
-				case .sv_will_half:
+				case .svWillHalf:
 					willHalf
-				case .sv_will_belief:
+				case .svWillBelief:
 					willDis
 				case .duration:
 					duration
@@ -689,21 +689,21 @@ struct SpellFields {
 					dur_hours
 				case .range:
 					range
-				case .rge_personal:
+				case .rgePersonal:
 					rge_self
-				case .rge_touch:
+				case .rgeTouch:
 					rge_tch
-				case .rge_close:
+				case .rgeClose:
 					rge_close
-				case .rge_medium:
+				case .rgeMedium:
 					rge_med
-				case .rge_long:
+				case .rgeLong:
 					rge_long
-				case .rge_feet:
+				case .rgeFeet:
 					rge_feet
 				case .target:
 					target
-				case .single_target:
+				case .singleTarget:
 					sglTarget
 				case .targetperCL:
 					targetPerCL
@@ -725,22 +725,26 @@ struct SpellFields {
 					bloodlines
 				case .domains:
 					domains
-				case .brisk_spell:
+				case .briskSpell:
 					brisk
-				case .empower_spell:
+				case .empowerSpell:
 					empower
-				case .intensify_spell:
+				case .intensifySpell:
 					intensify
-				case .umbral_spell:
+				case .umbralSpell:
 					umbral
-				case .vast_spell:
+				case .vastSpell:
 					vast
-				case .widen_spell:
+				case .widenSpell:
 					widen
-				case .yai_mimic_spell:
+				case .yaiMimicSpell:
 					yai
-				case .hp_damage_spell:
+				case .hpDamageSpell:
 					hp_dmg
+				case .hunter:
+					nil
+				case .arcanist:
+					nil
 			}
 		}
 	}

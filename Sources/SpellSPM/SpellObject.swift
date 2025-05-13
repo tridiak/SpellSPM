@@ -669,11 +669,15 @@ actor SpellStorage {
 		spellDB = try SpellDBAccess()
 	}
 	
+	init(dbPath: String) throws {
+		spellDB = try SpellDBAccess(dbPath: dbPath)
+	}
+	
 	private let spellDB : SpellDBAccess
-	private let lock = NSLock()
 	private var spells : [String:Spell] = [:]
 	
 	/// If spell already exists, it will be returned. If name is empty (after white space is trimmed), nil will be returned.
+	/// Will retreive from spell DB otherwise.
 	@discardableResult func retrieveSpell(name: String) async -> Spell? {
 		let n = name.trimmingCharacters(in: .whitespacesAndNewlines)
 		if n.isEmpty { return nil }
@@ -692,16 +696,12 @@ actor SpellStorage {
 	func getSpell(name: String) -> Spell? {
 		let n = name.trimmingCharacters(in: .whitespacesAndNewlines)
 		
-		return lock.withLock {
-			return spells[n]
-		}
+		return spells[n]
 	}
 	
 	
 	/// Memory release.
-	func PurgeAllSpells() {
-		lock.withLock {
-			spells.removeAll()
-		}
+	func purgeAllSpells() {
+		spells.removeAll()
 	}
 }

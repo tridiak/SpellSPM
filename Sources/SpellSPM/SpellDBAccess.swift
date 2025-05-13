@@ -10,6 +10,8 @@ import SQLite3
 
 actor SpellDBAccess : DBAccess {
 	
+	static let spellDBTableName = "spells"
+	
 	/// Pass if you want to use a different SQLite DB than the built-in one. Must contain same table name and columns.
 	/// Will throw SpellsEx if the file does not exist. Does not check if a valid DB file.
 	init(dbPath: String) throws {
@@ -500,24 +502,45 @@ actor SpellDBAccess : DBAccess {
 	
 	//--------------------------------------
 	// MARK: - non-protocol
+	static let names = [SpellDBFields.sorcerer.rawValue,
+						SpellDBFields.wizard.rawValue,
+						SpellDBFields.cleric.rawValue,
+						SpellDBFields.druid.rawValue,
+						SpellDBFields.ranger.rawValue,
+						SpellDBFields.bard.rawValue,
+						SpellDBFields.paladin.rawValue,
+						SpellDBFields.alchemist.rawValue,
+						SpellDBFields.summoner.rawValue,
+						SpellDBFields.witch.rawValue,
+						SpellDBFields.inquisitor.rawValue,
+						SpellDBFields.oracle.rawValue,
+						SpellDBFields.antipaladin.rawValue,
+						SpellDBFields.magus.rawValue,
+						SpellDBFields.adept.rawValue,
+						SpellDBFields.bloodrager.rawValue,
+						SpellDBFields.shaman.rawValue,
+						SpellDBFields.psychic.rawValue,
+						SpellDBFields.medium.rawValue,
+						SpellDBFields.mesmerist.rawValue,
+						SpellDBFields.occultist.rawValue,
+						SpellDBFields.spiritualist.rawValue
+		   ]
 	fileprivate var levelForSpellCache : [String:UInt8] = [:]
 	
-	/// Returns spell level of spell determined by a specific class order.
+	/// Returns spell level of spell determined by a specific class order. SpLike ability rules.
 	func levelForSpell(spell: String) -> UInt8? {
 		var sqPtr : OpaquePointer! = nil
 		var prepStmt : OpaquePointer! = nil
 		if let l = levelForSpellCache[spell] { return l }
 		do {
-			let names = ["sorcerer", "wizard", "cleric", "druid", "ranger", "bard", "paladin", "alchemist", "summoner",
-						 "witch", "inquisitor", "oracle", "antipaladin", "magus", "adept", "bloodrager", "shaman", "psychic",
-						 "medium", "mesmerist", "occultist", "spiritualist"]
+			
 			var idx = 0
 			var lvl : UInt8? = nil
-			while idx < names.count {
+			while idx < SpellDBAccess.names.count {
 				
 				sqPtr = try openSpellDB()
 				// name is case-sensitive
-				let stmt = "SELECT \(names[idx]) FROM spells WHERE name = '\(spell.escapeSingleQuote())';"
+				let stmt = "SELECT \(SpellDBAccess.names[idx]) FROM spells WHERE name = '\(spell.escapeSingleQuote())';"
 				
 				prepStmt = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 				//
@@ -622,7 +645,7 @@ actor SpellDBAccess : DBAccess {
 			var names = Set<String>()
 			sqPtr = try openSpellDB()
 			// name is case-sensitive
-			let stmt = "SELECT name FROM spells WHERE \(charClass.DBName()) = \(level);"
+			let stmt = "SELECT name FROM spells WHERE \(charClass.dbName()) = \(level);"
 			
 			prepStmt = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 			//
@@ -668,7 +691,7 @@ actor SpellDBAccess : DBAccess {
 			var names = Set<SpellLevel>()
 			sqPtr = try openSpellDB()
 			// name is case-sensitive
-			let stmt = "SELECT name, \(charClass.DBName()) FROM spells WHERE \(charClass.DBName()) IS NOT NULL;"
+			let stmt = "SELECT name, \(charClass.dbName()) FROM spells WHERE \(charClass.dbName()) IS NOT NULL;"
 			
 			prepStmt = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 			//

@@ -12,10 +12,11 @@ struct SpellLevel : Hashable {
 	let level : UInt8
 }
 
+// Implementation does not need to implement a cache.
 protocol DBAccess : Actor {
 	
 	/// Return every spell name in the database.
-	/// - Parameter force: Ignore and clear cache if true.
+	/// - Parameter force: Ignore and clear cache if true. Cache is not required for implementation.
 	/// - Throws: `SpellsDBEx` if there is any database error.
 	/// - Returns: All spells in the database
 	func getAllNames(force: Bool) throws -> [String]
