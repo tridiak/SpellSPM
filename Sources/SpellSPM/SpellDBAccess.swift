@@ -275,7 +275,7 @@ actor SpellDBAccess : DBAccess {
 		
 		let sqPtr : OpaquePointer = try openSpellDB()
 		// name is case-sensitive
-		let stmt = "SELECT \(field) FROM spells WHERE name='\(name.EscapeSingleQuote())';"
+		let stmt = "SELECT \(field) FROM spells WHERE name='\(name.escapeSingleQuote())';"
 		
 		let prepStmt : OpaquePointer = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 		
@@ -301,7 +301,7 @@ actor SpellDBAccess : DBAccess {
 		
 		let sqPtr : OpaquePointer = try openSpellDB()
 		// name is case-sensitive
-		let stmt = "SELECT \(field) FROM spells WHERE name='\(name.EscapeSingleQuote())';"
+		let stmt = "SELECT \(field) FROM spells WHERE name='\(name.escapeSingleQuote())';"
 		
 		let prepStmt : OpaquePointer = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 		
@@ -328,7 +328,7 @@ actor SpellDBAccess : DBAccess {
 		let sqPtr : OpaquePointer! = try? openSpellDB()
 		if sqPtr == nil { return false }
 		// name is case-sensitive
-		let stmt = "SELECT name FROM spells WHERE name='\(name.EscapeSingleQuote())';"
+		let stmt = "SELECT name FROM spells WHERE name='\(name.escapeSingleQuote())';"
 		
 		let prepStmt : OpaquePointer! = try? prepStatement(sqPtr: sqPtr, stmt: stmt)
 		if prepStmt == nil {
@@ -399,7 +399,7 @@ actor SpellDBAccess : DBAccess {
 		do {
 			sqPtr = try openSpellDB()
 			// name is case-sensitive
-			let spl = spell.EscapeSingleQuote()
+			let spl = spell.escapeSingleQuote()
 			let stmt = "SELECT * FROM spells WHERE name LIKE '\(spl)';"
 			
 			prepStmt = try prepStatement(sqPtr: sqPtr, stmt: stmt)
@@ -522,7 +522,7 @@ actor SpellDBAccess : DBAccess {
 				
 				sqPtr = try openSpellDB()
 				// name is case-sensitive
-				let stmt = "SELECT \(names[idx]) FROM spells WHERE name = '\(spell.EscapeSingleQuote())';"
+				let stmt = "SELECT \(names[idx]) FROM spells WHERE name = '\(spell.escapeSingleQuote())';"
 				
 				prepStmt = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 				//
@@ -573,7 +573,7 @@ actor SpellDBAccess : DBAccess {
 				
 				sqPtr = try openSpellDB()
 				// name is case-sensitive
-				let stmt = "SELECT \(names[idx]) FROM spells WHERE name = '\(spell.EscapeSingleQuote())';"
+				let stmt = "SELECT \(names[idx]) FROM spells WHERE name = '\(spell.escapeSingleQuote())';"
 				
 				prepStmt = try prepStatement(sqPtr: sqPtr, stmt: stmt)
 				//

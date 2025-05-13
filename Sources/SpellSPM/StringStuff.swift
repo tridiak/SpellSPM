@@ -11,31 +11,20 @@ import Foundation
 extension String {
 	static let CompareOptsNone = String.CompareOptions.init(rawValue: 0)
 	
-	static func CharInSet(char: Character, set: CharacterSet) -> Bool {
-		for uc in char.unicodeScalars {
-			if set.contains(uc) { return true }
+	/// Checks if a character contains any Unicode scalar in the given CharacterSet
+		static func charInSet(_ char: Character, set: CharacterSet) -> Bool {
+			return char.unicodeScalars.contains(where: set.contains)
 		}
-		return false
-	}
-	
-	/// Remove all characters in set from string and returning a new string.
-	/// - Parameter set: Characters to remove.
-	/// - Returns: resultant string
-	func RemoveFrom(set: CharacterSet) -> String {
-		if self.isEmpty { return self }
-		var s : String = ""
-		
-		s = self.filter { C in
-			return !String.CharInSet(char: C, set: set)
+
+		/// Returns a new string with characters removed if they are in the given CharacterSet
+		func removingCharacters(in set: CharacterSet) -> String {
+			return self.filter { !String.charInSet($0, set: set) }
 		}
-		
-		return s
-	}
 	
 	/// Mutates the string by removing characters in set.
 	/// - Parameter set: Characters to remove.
-	mutating func RemoveFromM(set: CharacterSet) {
-		self = RemoveFrom(set: set)
+	mutating func removeFromM(set: CharacterSet) {
+		self = removingCharacters(in: set)
 	}
 	
 	
@@ -43,54 +32,45 @@ extension String {
 	/// Calls through to RemoveFrom(set:CharacterSet)
 	/// - Parameter set: string contains characters to remove.
 	/// - Returns: resultant string
-	func RemoveFrom(set: String) -> String {
+	func removeFrom(set: String) -> String {
 		let S = CharacterSet.init(charactersIn: set)
 		
-		return RemoveFrom(set: S)
+		return removingCharacters(in: S)
 	}
 	
 	/// Mutates the string by removing characters in set.
 	/// - Parameter set: string contains characters to remove.
-	mutating func RemoveFromM(set: String) {
-		self = RemoveFrom(set: set)
+	mutating func removeFromM(set: String) {
+		self = removeFrom(set: set)
 	}
 	
 	/// Keep all characters in set from string and returning a new string.
 	/// - Parameter set: Characters to remove.
 	/// - Returns: resultant string
-	func KeepThoseIn(set: CharacterSet) -> String {
-		if self.isEmpty { return self }
-		var s : String = ""
-		
-		for c in self {
-			if String.CharInSet(char: c, set: set) {
-				s.append(c)
-			}
-		}
-		
-		return s
+	func keepThoseIn(set: CharacterSet) -> String {
+		return self.filter { String.charInSet($0, set: set) }
 	}
 	
 	/// Mutates the string by keeping the characters in set.
 	/// - Parameter set: Characters to remove.
 	mutating func KeepThoseInM(set: CharacterSet) {
-		self = KeepThoseIn(set: set)
+		self = keepThoseIn(set: set)
 	}
 	
 	/// Keep all characters in set from string and returning a new string.
 	/// Calls through to KeepThoseIn(set:CharacterSet)
 	/// - Parameter set: string contains characters to keep.
 	/// - Returns: resultant string
-	func KeepThoseIn(set: String) -> String {
+	func keepThoseIn(set: String) -> String {
 		let S = CharacterSet.init(charactersIn: set)
 		
-		return KeepThoseIn(set: S)
+		return keepThoseIn(set: S)
 	}
 	
 	/// Mutates the string by keeping the characters in set.
 	/// - Parameter set: Characters to remove.
 	mutating func KeepThoseInM(set: String) {
-		self = KeepThoseIn(set: set)
+		self = keepThoseIn(set: set)
 	}
 	
 	//--------------------------------
@@ -103,49 +83,45 @@ extension String {
 	//----------------------------------
 	
 	/// Return a string where all characters in 'chars' are replace with 'with'.
-	func ReplaceAll(chars: CharacterSet, with: Character) -> String {
-		var s : String = ""
-		
-		for c in self {
-			if String.CharInSet(char: c, set: chars) { s.append(with) }
-			else { s.append(c) }
-		}
-		
-		return s
+	func replaceAll(chars: CharacterSet, with: Character) -> String {
+		return String(self.map { C in
+			if String.charInSet(C, set: chars) {
+				return with
+			}
+			else {
+				return C
+			}
+		})
 	}
 	
 	/// Replace all characters in 'chars' with character 'with'.
-	mutating func ReplaceAllM(chars: CharacterSet, with: Character) {
-		self = ReplaceAll(chars: chars, with: with)
+	mutating func replaceAllM(chars: CharacterSet, with: Character) {
+		self = replaceAll(chars: chars, with: with)
 	}
 	
 	/// Return a string where all characters in 'chars' are replace with 'with'.
-	func ReplaceAll(chars: String, with: Character) -> String {
+	func replaceAll(chars: String, with: Character) -> String {
 		let S = CharacterSet.init(charactersIn: chars)
 		
-		return ReplaceAll(chars: S, with: with)
+		return replaceAll(chars: S, with: with)
 	}
 	
 	/// Replace all characters in 'chars' with character 'with'.
 	mutating func ReplaceAllM(chars: String, with: Character) {
-		self =  ReplaceAll(chars: chars, with: with)
+		self =  replaceAll(chars: chars, with: with)
 	}
 	
 	//------------------------------------
 	/// Count of character
-	func CountOf(char: Character) -> UInt {
-		var count : UInt = 0
-		
-		for c in self {
-			if c == char { count += 1 }
-		}
-		
-		return count
+	func countOf(char: Character) -> UInt {
+		return UInt(self.count { C in
+			return C == char
+		})
 	}
 	
 	/// Return string after last character 'char'.
 	/// If character does not exist, nil will be returned.
-	func StringAfterLast(char: Character) -> String? {
+	func stringAfterLast(char: Character) -> String? {
 		guard let idx = self.range(of: String(char), options: String.CompareOptions.backwards, range: nil, locale: nil)
 			else { return nil }
 		
@@ -156,7 +132,7 @@ extension String {
 	
 	/// Return string before LAST character 'char'.
 	/// If character does not exist, nil will be returned.
-	func StringBeforeLast(char: Character) -> String? {
+	func stringBeforeLast(char: Character) -> String? {
 		guard let idx = self.range(of: String(char), options: String.CompareOptions.backwards, range: nil, locale: nil)
 			else { return nil }
 		
@@ -169,7 +145,7 @@ extension String {
 	
 	/// Returns a string where consecutive characters are reduced to a single character.
 	/// 'AAABBCDDDEE' -> 'ABCDE'
-	func ReduceConsecutiveChars() -> String {
+	func reduceConsecutiveChars() -> String {
 		var s : String = ""
 		var lastC : Character = "\0"
 		
@@ -184,13 +160,13 @@ extension String {
 	}
 	
 	/// Eliminates consecutive characters.
-	mutating func ReduceConsecutiveCharsM() {
-		self = ReduceConsecutiveChars()
+	mutating func reduceConsecutiveCharsM() {
+		self = reduceConsecutiveChars()
 	}
 	
 	/// Returns a string where consecutive occurrences of 'char' are reduce to a single character.
 	/// 'AABBCCCDDDEEEEE' char = 'D' -> 'AABBCCDEEEE'
-	func ReduceConsecutiveCharsOf(char: Character) -> String {
+	func reduceConsecutiveCharsOf(char: Character) -> String {
 		
 		var s : String = ""
 		var currC : Character = "\0"
@@ -207,18 +183,18 @@ extension String {
 	}
 	
 	/// Reduce consecutive occurrences of 'char' to a single character.
-	mutating func ReduceConsecutiveCharsOfM(char: Character) {
-		self = ReduceConsecutiveCharsOf(char: char)
+	mutating func reduceConsecutiveCharsOfM(char: Character) {
+		self = reduceConsecutiveCharsOf(char: char)
 	}
 	
 	//------------------------------------
 	
 	/// String to ULL with magnitude suffix. Recognised suffixes: byte/KiB/MiB/GiB/TiB/PiB/KB/MB/GB/TB/PB.
-	func ConvertSuffixedToUInt() -> UInt? {
+	func convertSuffixedToUInt() -> UInt? {
 		let line = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 		if line.isEmpty { return nil }
 		
-		if line.CountOf(char: ".") > 1  { return nil }
+		if line.countOf(char: ".") > 1  { return nil }
 		
 		// does not contain any suffix
 		if let d = Double(line) {
@@ -258,7 +234,7 @@ extension String {
 	
 	/// Split string into equal count of charCount.
 	/// If string count is not a multiple of charCount, nil will be returned.
-	func EqualSplit(charCount: UInt) -> [String]? {
+	func equalSplit(charCount: UInt) -> [String]? {
 		if charCount == 0 || (UInt(self.count) % charCount) != 0 { return nil }
 		
 		var ary : [String] = []
@@ -288,10 +264,10 @@ extension String {
 	///   - down: Down or close character.
 	/// - Returns: Will return nil if up = down, up = sep, down = sep, count(up) != count(down) or "level" drops below 0.
 	///	Otherwise it will return an array of components.
-	func SameLevelSplit(separator sep: Character, upMarker up: Character, downMarker down: Character) -> [String]? {
+	func sameLevelSplit(separator sep: Character, upMarker up: Character, downMarker down: Character) -> [String]? {
 		if up == down || sep == up || sep == down { return nil }
-		if self.CountOf(char: up) != self.CountOf(char: down) { return nil }
-		if self.CountOf(char: up) == 0  { return self.split(separator: sep).ToStringArray() }
+		if self.countOf(char: up) != self.countOf(char: down) { return nil }
+		if self.countOf(char: up) == 0  { return self.split(separator: sep).toStringArray() }
 		
 		var s : String = ""
 		var ary : [String] = []
@@ -312,7 +288,7 @@ extension String {
 	
 	/// Return two substrings before and after first occurrence of 'separator'.
 	/// If marker is not found, result.before will return self and result.after will return nil.
-	func BeforeAndAfter(marker: String) -> (before:String,after:String?) {
+	func beforeAndAfter(marker: String) -> (before:String,after:String?) {
 		guard let idx = self.range(of: marker) else { return (self, nil) }
 		
 		let B = String( self[..<idx.lowerBound] )
@@ -326,7 +302,7 @@ extension String {
 										 "d":13, "E":14, "e":14, "F":15, "f":15]
 	
 	/// Convert hex to UInt
-	func HexToUInt() -> UInt? {
+	func hexToUInt() -> UInt? {
 		if isEmpty { return nil }
 		if self.count > 16 { return nil }
 		
@@ -341,7 +317,7 @@ extension String {
 	}
 	
 	/// Get Nth character of string.
-	func GetChar(N: Int) -> Character? {
+	func getChar(N: Int) -> Character? {
 		if N < 0 || self.isEmpty { return nil }
 		if N >= self.count { return nil }
 		if N == 0 { return self.first! }
@@ -351,7 +327,7 @@ extension String {
 	}
 	
 	/// Get Nth character index.
-	func GetNthIndex(_ N: Int) -> String.Index? {
+	func getNthIndex(_ N: Int) -> String.Index? {
 		if N < 0 || self.isEmpty { return nil }
 		if N >= self.count { return nil }
 		if N == 0 { return startIndex }
@@ -359,54 +335,46 @@ extension String {
 		return index(startIndex, offsetBy: N - 1)
 	}
 	
-	/// Return substring after string.index
-	func SubstringAfter(index: String.Index) -> Substring? {
-		if index == self.endIndex { return nil }
-		let idx = self.index(after: index)
-		if idx == self.endIndex { return nil }
-		return self[idx...]
-	}
-	
 	/// Append string if self is not empty
-	mutating func AppendNotEmpty(_ S: String) {
+	mutating func appendIfNotEmpty(_ S: String) {
 		if !isEmpty { self.append(S) }
 	}
 	
 	/// Passed character is removed if it is the last character in the string.
-	@discardableResult mutating func RemoveIfLast(char: Character) -> String {
+	@discardableResult mutating func removeIfLast(char: Character) -> String {
 		if let C = self.last, C == char  { self.removeLast() }
 		return self
 	}
 	
 	/// Returns true if string starts with passed string
-	func FirstPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
+	func firstPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
 		return self.range(of: S, options: options, range: nil, locale: nil)?.lowerBound == self.startIndex
 	}
 	
 	/// Returns true if string ends with passed string
-	func LastPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
+	func lastPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
 		return self.range(of: S, options: options.union(CompareOptions.backwards), range: nil, locale: nil)?.upperBound == self.endIndex
 	}
 	
 	/// Returns true and the element if any element in the passed String sequence is the first part of the String
-	func FirstPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
+	func firstPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
 		for s in S {
-			if FirstPartIs(s, options: options) { return (true, s) }
+			if firstPartIs(s, options: options) { return (true, s) }
 		}
 		return (false, nil)
 	}
 	
 	/// Returns true and the element if any element in the passed String sequence is the last part of the String
-	func LastPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
+	func lastPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
 		for s in S {
-			if LastPartIs(s, options: options) { return (true, s) }
+			if lastPartIs(s, options: options) { return (true, s) }
 		}
 		return (false, nil)
 	}
 	
 	/// Compares two optional strings. If both are nil, true is returned.
 	/// If one is nil, false is returned. Otherwise standard string comparison.
-	static func CompareNil(_ s1 : String?, _ s2 : String?) -> Bool {
+	static func compareNil(_ s1 : String?, _ s2 : String?) -> Bool {
 		if s1 == nil && s2 == nil { return true }
 		if s1 == nil || s2 == nil { return false }
 		return s1! == s2!
@@ -416,7 +384,7 @@ extension String {
 	/// If count requested is 0, an empty string will be returned.
 	/// Not the most efficient method so keep the count small.
 	@available(*, deprecated, message: "Use [...GetNthIndex()] instead")
-	func FirstNChars(count ct: UInt) -> String? {
+	func firstNChars(count ct: UInt) -> String? {
 		if count == 0 { return nil }
 		if ct == 0 { return "" }
 		var s = ""
@@ -433,7 +401,7 @@ extension String {
 	/// Return substring after '.'
 	///
 	/// - Returns: nil if extension(.) does not exist, otherwise (extension, everything before '.')
-	func GetExtension() -> (ext:String, rem:String)? {
+	func getExtension() -> (ext:String, rem:String)? {
 		guard let idx = self.range(of: ".", options: String.CompareOptions.backwards, range: nil, locale: nil) else {
 			return nil
 		}
@@ -447,7 +415,7 @@ extension String {
 	///
 	/// - Parameter to: new extension. Can be empty.
 	/// - Returns: String with new extension or original string if there is no extension.
-	func ChangeExtension(to:String) -> String {
+	func changeExtension(to:String) -> String {
 		guard let idx = self.range(of: ".", options: String.CompareOptions.backwards, range: nil, locale: nil) else {
 			return self
 		}
@@ -459,7 +427,7 @@ extension String {
 	/// Remove extension and the '.'. Searches from end of string.
 	///
 	/// - Returns: orignal string if no extension otherwise all characters before extension
-	func DropExtension() -> String {
+	func dropExtension() -> String {
 		guard let idx = self.range(of: ".", options: String.CompareOptions.backwards, range: nil, locale: nil) else {
 			return self
 		}
@@ -488,7 +456,7 @@ extension String {
 	}
 	
 	/// Escape ' (single quote) for SQL statements
-	func EscapeSingleQuote() -> String {
+	func escapeSingleQuote() -> String {
 		if self.isEmpty || !self.contains("'") { return self }
 		var s = ""
 		for c in self {
@@ -500,17 +468,21 @@ extension String {
 	}
 	
 	/// Find all between charA & charB. Will return nil if niether character is present. Will return an empty string if characters are adjacent.
-	func Inbetween(charA: Character, charB: Character) -> String? {
-		guard let idx = self.firstIndex(of: charA) else { return nil }
-		guard let ss = self.SubstringAfter(index: idx) else { return nil }
+	func inbetween(charA: Character, charB: Character) -> String? {
+		guard var idx = self.firstIndex(of: charA) else { return nil }
+		idx = self.index(after: idx)
+		if idx >= self.endIndex { return nil }
+		let ss = self[idx...]
 		guard let edx = ss.firstIndex(of: charB) else { return nil }
 		return String(ss[..<edx])
 	}
 	
-	func Inbetween(charA: Character, charB: Character, range: Range<String.Index>) -> String? {
+	func inbetween(charA: Character, charB: Character, range: Range<String.Index>) -> String? {
 		let r = self[range]
-		guard let idx = r.firstIndex(of: charA) else { return nil }
-		guard let ss = self.SubstringAfter(index: idx) else { return nil }
+		guard var idx = r.firstIndex(of: charA) else { return nil }
+		idx = self.index(after: idx)
+		if idx >= self.endIndex { return nil }
+		let ss = self[idx...]
 		guard let edx = ss.firstIndex(of: charB) else { return nil }
 		return String(ss[..<edx])
 	}
@@ -526,7 +498,7 @@ extension String {
 extension Array where Element : StringProtocol {
 	/// Returns first index and length of longest string in array.
 	/// Will return nil if array is empty.
-	func LongestString() -> (index: UInt, length: UInt)? {
+	func longestString() -> (index: UInt, length: UInt)? {
 		if isEmpty { return nil }
 		
 		var len : UInt = 0
@@ -543,21 +515,21 @@ extension Array where Element : StringProtocol {
 	}
 	
 	/// Return lowercase version of string array.
-	func LowerCaseAll() -> [String] {
+	func lowerCaseAll() -> [String] {
 		return self.map({ (S) -> String in
 			return S.lowercased()
 		})
 	}
 	
 	/// Return uppercase version of string array.
-	func UpperCaseAll() -> [String] {
+	func upperCaseAll() -> [String] {
 		return self.map({ (S) -> String in
 			return S.uppercased()
 		})
 	}
 	
 	/// Used for converting [Substring] to [String]
-	func ToStringArray() -> [String] {
+	func toStringArray() -> [String] {
 		var ary : [String] = []
 		for s in self {
 			ary.append(String(s))
@@ -570,14 +542,14 @@ extension Array where Element : StringProtocol {
 	///
 	/// - Parameter S: String to check
 	/// - Returns: true if is does
-	func ContainsCI(_ S: String) -> Bool {
+	func containsCI(_ S: String) -> Bool {
 		for s in self {
 			if s.lowercased() == S.lowercased() { return true }
 		}
 		return false
 	}
 	
-	mutating func RemoveEmpty() {
+	mutating func removeIfEmpty() {
 		self = self.filter { SP in
 			return !SP.isEmpty
 		}
@@ -593,7 +565,7 @@ let suffix1000 = ["byte", "KB", "MB", "GB", "TB", "PB"]
 
 extension UInt {
 	
-	func ByteString1024() -> String {
+	func byteString1024() -> String {
 		if self < 1024 {
 			return "\(self) byte"
 		}
@@ -610,7 +582,7 @@ extension UInt {
 		return String(format: "%.2f %@", v, suffix1024[idx])
 	}
 	
-	func ByteString1000() -> String {
+	func byteString1000() -> String {
 		if self < 1000 {
 			return "\(self) byte"
 		}
