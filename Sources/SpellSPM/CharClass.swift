@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CharClass : String, CaseIterable {
+public enum CharClass : String, CaseIterable, Sendable {
 	case sorcerer = "sorcerer"
 	case wizard = "wizard"
 	case cleric = "cleric"

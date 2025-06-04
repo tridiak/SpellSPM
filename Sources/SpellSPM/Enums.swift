@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SpellSchools : String, CaseIterable {
+public enum SpellSchools : String, CaseIterable, Sendable {
 	case abj
 	case cnj
 	case div
@@ -65,7 +65,7 @@ enum SpellSchools : String, CaseIterable {
 	}
 }
 
-enum SpellSubschool : String, CaseIterable {
+public enum SpellSubschool : String, CaseIterable, Sendable {
 	case calling
 	case charm
 	case compulsion
@@ -107,7 +107,7 @@ enum SpellSubschool : String, CaseIterable {
 	
 }
 
-enum SpellComponents : String {
+public enum SpellComponents : String {
 	case V = "verbal"
 	case S = "somatic"
 	case M = "material"
@@ -115,7 +115,7 @@ enum SpellComponents : String {
 	case DF = "divine focus"
 }
 
-enum SpellCastingTime {
+public enum SpellCastingTime {
 	case standard
 	case swift
 	case immediate
@@ -126,7 +126,7 @@ enum SpellCastingTime {
 	case other
 }
 
-enum SpellDescriptors {
+public enum SpellDescriptors {
 	case acid
 	case air
 	case chaotic
@@ -154,7 +154,7 @@ enum SpellDescriptors {
 	case water
 }
 
-enum SpellRange {
+public enum SpellRange {
 	case personal
 	case touch
 	case close

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SpellsDBEx : Error, Equatable {
+public enum SpellsDBEx : Error, Equatable {
 	case invalidResourcesFile
 	case databaseMissing
 	

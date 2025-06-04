@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SpellFields {
+public struct SpellFields : Sendable {
 	var name : String = ""
 	var school : Int = 0
 	var subschool : Int? = nil

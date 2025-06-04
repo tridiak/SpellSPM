@@ -8,7 +8,7 @@
 import Foundation
 
 // spells table DB field names
-enum SpellDBFields : String, CaseIterable {
+public enum SpellDBFields : String, CaseIterable {
 	// String
 	case name = "name"
 	

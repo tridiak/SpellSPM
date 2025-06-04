@@ -8,7 +8,7 @@
 import Foundation
 import SQLite3
 
-actor SpellDBAccess : DBAccess {
+public actor SpellDBAccess : DBAccess {
 	
 	static let spellDBTableName = "spells"
 	

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SpellLevel : Hashable {
+public struct SpellLevel : Hashable {
 	let spell : String
 	let level : UInt8
 }

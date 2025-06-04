@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Spell : Hashable, Sendable {
+public final class Spell : Hashable, Sendable {
 	let name : String
 	
 	let spellData : SpellFields
@@ -43,11 +43,11 @@ final class Spell : Hashable, Sendable {
 	}
 	
 	//----------
-	static func == (lhs: Spell, rhs: Spell) -> Bool {
+	public static func == (lhs: Spell, rhs: Spell) -> Bool {
 		return lhs.name == rhs.name
 	}
 	
-	func hash(into hasher: inout Hasher) {
+	public func hash(into hasher: inout Hasher) {
 		hasher.combine(name)
 	}
 }
@@ -95,7 +95,7 @@ extension Spell {
 	var sourceIsACG : Bool { return source == "acg" }
 	var sourceIsARG : Bool { return source == "arg" }
 	var sourceIsUltimate : Bool { return source == "ultimate" }
-	var sourceIsOther : Bool { return 
+	var sourceIsOther : Bool { return
 		!(sourceIsCore || sourceIsAPG || sourceIsACG || sourceIsARG || sourceIsUltimate)
 	}
 	
@@ -666,7 +666,7 @@ extension Spell {
 //------------------------------------------------
 // MARK: - Spell Storage
 
-actor SpellStorage {
+public actor SpellStorage {
 	init() throws {
 		spellDB = try SpellDBAccess()
 	}
