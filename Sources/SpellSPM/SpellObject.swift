@@ -680,7 +680,7 @@ public actor SpellStorage {
 	
 	/// If spell already exists, it will be returned. If name is empty (after white space is trimmed), nil will be returned.
 	/// Will retreive from spell DB otherwise.
-	@discardableResult func retrieveSpell(name: String) async -> Spell? {
+	@discardableResult public func retrieveSpell(name: String) async -> Spell? {
 		let n = name.trimmingCharacters(in: .whitespacesAndNewlines)
 		if n.isEmpty { return nil }
 		
@@ -695,6 +695,7 @@ public actor SpellStorage {
 		return data
 	}
 	
+	/// Retrieve spell object if it exists. Call retrieveSpell() if you want to retrieve its metadata from the database.
 	public func getSpell(name: String) -> Spell? {
 		let n = name.trimmingCharacters(in: .whitespacesAndNewlines)
 		
