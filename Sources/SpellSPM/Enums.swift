@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SpellSchools : String, CaseIterable, Sendable {
+public enum SpellSchools : String, CaseIterable, Sendable, Comparable {
 	case abj
 	case cnj
 	case div
@@ -18,6 +18,10 @@ public enum SpellSchools : String, CaseIterable, Sendable {
 	case trn
 	case unv
 	//case user
+	
+	public static func < (lhs: Self, rhs: Self) -> Bool {
+		return lhs.rawValue < rhs.rawValue
+	}
 	
 	public static func from(string: String) -> SpellSchools? {
 		switch string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lowercased() {
@@ -65,7 +69,7 @@ public enum SpellSchools : String, CaseIterable, Sendable {
 	}
 }
 
-public enum SpellSubschool : String, CaseIterable, Sendable {
+public enum SpellSubschool : String, CaseIterable, Sendable, Comparable {
 	case calling
 	case charm
 	case compulsion
@@ -80,6 +84,10 @@ public enum SpellSubschool : String, CaseIterable, Sendable {
 	case shadow
 	case summoning
 	case teleportation
+	
+	public static func < (lhs: Self, rhs: Self) -> Bool {
+		return lhs.rawValue < rhs.rawValue
+	}
 	
 	/// Int value returned from database can be passed here
 	public static func from(int: Int?) -> SpellSubschool? {
@@ -107,15 +115,19 @@ public enum SpellSubschool : String, CaseIterable, Sendable {
 	
 }
 
-public enum SpellComponents : String {
+public enum SpellComponents : String, Comparable {
 	case V = "verbal"
 	case S = "somatic"
 	case M = "material"
 	case F = "focus"
 	case DF = "divine focus"
+	
+	public static func < (lhs: Self, rhs: Self) -> Bool {
+		return lhs.rawValue < rhs.rawValue
+	}
 }
 
-public enum SpellCastingTime {
+public enum SpellCastingTime : Comparable {
 	case standard
 	case swift
 	case immediate
@@ -126,7 +138,7 @@ public enum SpellCastingTime {
 	case other
 }
 
-public enum SpellDescriptors {
+public enum SpellDescriptors : Comparable {
 	case acid
 	case air
 	case chaotic
@@ -154,7 +166,7 @@ public enum SpellDescriptors {
 	case water
 }
 
-public enum SpellRange {
+public enum SpellRange : Comparable {
 	case personal
 	case touch
 	case close

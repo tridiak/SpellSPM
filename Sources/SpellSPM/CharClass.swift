@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CharClass : String, CaseIterable, Sendable {
+public enum CharClass : String, CaseIterable, Sendable, Comparable {
 	case sorcerer = "sorcerer"
 	case wizard = "wizard"
 	case cleric = "cleric"
@@ -34,6 +34,10 @@ public enum CharClass : String, CaseIterable, Sendable {
 	//	case skald = "skald"
 	//	case warpriest = "warpriest"
 	case hunter = "hunter"
+	
+	public static func < (lhs: Self, rhs: Self) -> Bool {
+		return lhs.rawValue < rhs.rawValue
+	}
 	
 }
 

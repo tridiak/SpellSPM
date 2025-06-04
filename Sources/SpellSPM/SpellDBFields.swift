@@ -370,4 +370,8 @@ public enum SpellDBFields : String, CaseIterable {
 	case arcanist = "arcanist"
 }
 
-// Removed user query support dictionaries.
+extension SpellDBFields : Comparable {
+	public static func < (lhs: Self, rhs: Self) -> Bool {
+		return lhs.rawValue < rhs.rawValue
+	}
+}
