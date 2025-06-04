@@ -435,26 +435,6 @@ extension String {
 		return String(self[..<idx.lowerBound])
 	}
 	
-	static func == (LHS: Character, RHS: String) -> Bool {
-		return RHS.count == 1 ? (LHS == RHS.first!) : false
-	}
-	
-	static func != (LHS: Character, RHS: String) -> Bool {
-		return RHS.count == 1 ? (LHS != RHS.first!) : false
-	}
-	
-	static func == (LHS: String, RHS: Character) -> Bool {
-		return LHS.count == 1 ? (RHS == LHS.first!) : false
-	}
-	
-	static func != (LHS: String, RHS: Character) -> Bool {
-		return LHS.count == 1 ? (RHS != LHS.first!) : false
-	}
-	
-	static func + (LHS: String, RHS: Character) -> String {
-		return LHS + String(RHS)
-	}
-	
 	/// Escape ' (single quote) for SQL statements
 	func escapeSingleQuote() -> String {
 		if self.isEmpty || !self.contains("'") { return self }
