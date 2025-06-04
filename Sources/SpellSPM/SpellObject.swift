@@ -95,7 +95,9 @@ extension Spell {
 	var sourceIsACG : Bool { return source == "acg" }
 	var sourceIsARG : Bool { return source == "arg" }
 	var sourceIsUltimate : Bool { return source == "ultimate" }
-	var sourceIsOther : Bool { return source == "other" }
+	var sourceIsOther : Bool { return 
+		!(sourceIsCore || sourceIsAPG || sourceIsACG || sourceIsARG || sourceIsUltimate)
+	}
 	
 	//--------------------------------------
 	// MARK: Components
