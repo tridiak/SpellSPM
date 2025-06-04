@@ -39,9 +39,9 @@ public enum CharClass : String, CaseIterable, Sendable {
 
 extension CharClass {
 	
-	static let shortNames = ["sor", "wiz", "clr", "drd", "rgr", "brd", "pal", "alc", "smn", "wit", "inq", "orc", "apl",
+	public static let shortNames = ["sor", "wiz", "clr", "drd", "rgr", "brd", "pal", "alc", "smn", "wit", "inq", "orc", "apl",
 		"mag", "adp", "brg", "shm", "psy", "med", "mes", "occ", "spr", "arc", "htr"]
-	static let shortToEnum : [String:CharClass] = [
+	public static let shortToEnum : [String:CharClass] = [
 		"sor" : .sorcerer,		"wiz" : .wizard,		"clr" : .cleric,		"drd" : .druid,
 		"rgr" : .ranger,		"brd" : .bard,			"pal" : .paladin,		"alc" : .alchemist,
 		"smn" : .summoner,		"wit" : .witch,			"inq" : .inquisitor,	"orc" : .oracle,
@@ -50,19 +50,19 @@ extension CharClass {
 		"occ" : .occultist,		"spr" : .spiritualist,	"htr" : .hunter,		"arc" : .arcanist
 	]
 	
-	static func from(strg: String) -> CharClass? {
+	public static func from(strg: String) -> CharClass? {
 		if let V = self.init(rawValue: strg.lowercased()) { return V }
 		return shortToEnum[strg.lowercased()]
 	}
 	
-	static func shortToLong(name: String) -> String {
+	public static func shortToLong(name: String) -> String {
 		if let s = shortToEnum[name.lowercased()] {
 			return s.rawValue
 		}
 		return ""
 	}
 	
-	func dbName() -> String {
+	public func dbName() -> String {
 		return self.rawValue
 	}
 }

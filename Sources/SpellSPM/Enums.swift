@@ -19,7 +19,7 @@ public enum SpellSchools : String, CaseIterable, Sendable {
 	case unv
 	//case user
 	
-	static func from(string: String) -> SpellSchools? {
+	public static func from(string: String) -> SpellSchools? {
 		switch string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lowercased() {
 			case "abj", "abjuration": return .abj
 			case "cnj", "conjuration": return .cnj
@@ -35,13 +35,13 @@ public enum SpellSchools : String, CaseIterable, Sendable {
 	}
 	
 	/// Int value returned from database can be passed here
-	static func from(int: Int) -> SpellSchools? {
+	public static func from(int: Int) -> SpellSchools? {
 		let a = SpellSchools.allCases
 		if int < 0 || int >= a.count { return nil }
 		return a[Int(int)]
 	}
 	
-	func longSpelling() -> String {
+	public func longSpelling() -> String {
 		switch self {
 			case .abj:
 				return "abjuration"
@@ -82,7 +82,7 @@ public enum SpellSubschool : String, CaseIterable, Sendable {
 	case teleportation
 	
 	/// Int value returned from database can be passed here
-	static func from(int: Int?) -> SpellSubschool? {
+	public static func from(int: Int?) -> SpellSubschool? {
 		guard let int else { return nil }
 		switch int {
 			case 0: return .calling

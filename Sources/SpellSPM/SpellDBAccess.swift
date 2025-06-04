@@ -14,7 +14,7 @@ public actor SpellDBAccess : DBAccess {
 	
 	/// Pass if you want to use a different SQLite DB than the built-in one. Must contain same table name and columns.
 	/// Will throw SpellsEx if the file does not exist. Does not check if a valid DB file.
-	init(dbPath: String) throws {
+	public init(dbPath: String) throws {
 		self.dbPath = dbPath
 		
 		var dir : ObjCBool = false
@@ -27,7 +27,7 @@ public actor SpellDBAccess : DBAccess {
 	}
 	
 	/// Use built-in DB.
-	init() throws {
+	public init() throws {
 		guard let url = Bundle.module.url(forResource: "spellDBv3", withExtension: "db") else {
 			throw SpellsDBEx.databaseMissing
 		}
@@ -80,7 +80,7 @@ public actor SpellDBAccess : DBAccess {
 	/// - Parameter force: clear cache and force reload from database.
 	/// - Throws: `SQLiteEx` any database errors
 	/// - Returns: Returns list of spell names. Can throw SQLiteEx execption.
-	func getAllNames(force: Bool) throws -> [String] {
+	public func getAllNames(force: Bool) throws -> [String] {
 		if !allSpellNames.isEmpty && !force { return allSpellNames }
 		
 		allSpellNames.removeAll()
@@ -128,7 +128,7 @@ public actor SpellDBAccess : DBAccess {
 	/// - Parameter query: SQLite query. Assumes WHERE is prefixed. To retrieve all names, pass an empty string.
 	/// - Throws: `SQLiteEx` any database errors
 	/// - Returns: Array of spell names
-	func getNamesWith(query: String) throws -> [String] {
+	public func getNamesWith(query: String) throws -> [String] {
 		
 		var prepStmt : OpaquePointer!
 		var sqPtr : OpaquePointer!
@@ -171,7 +171,7 @@ public actor SpellDBAccess : DBAccess {
 		}
 	}
 	
-	func getAllIntValues(field: String) throws -> [(spell: String, value: Int?)] {
+	public func getAllIntValues(field: String) throws -> [(spell: String, value: Int?)] {
 		let sqPtr : OpaquePointer! = try openSpellDB()
 		
 		let stmt = "SELECT name, \(field) FROM spells;"
@@ -219,7 +219,7 @@ public actor SpellDBAccess : DBAccess {
 		return ary
 	}
 	
-	func getAllTextValues(field: String) throws -> [(spell: String, text: String?)] {
+	public func getAllTextValues(field: String) throws -> [(spell: String, text: String?)] {
 		let sqPtr : OpaquePointer! = try openSpellDB()
 		
 		let stmt = "SELECT name, \(field) FROM spells;"
@@ -268,7 +268,7 @@ public actor SpellDBAccess : DBAccess {
 	}
 	
 	// Spells DB spell table columns types are either int or string. Some can be null.
-	func getSpellIntField(name: String, field: String) throws -> Int? {
+	public func getSpellIntField(name: String, field: String) throws -> Int? {
 		
 		let sqPtr : OpaquePointer = try openSpellDB()
 		// name is case-sensitive
@@ -294,7 +294,7 @@ public actor SpellDBAccess : DBAccess {
 	}
 	
 	/// Return text value of a SQL table column.
-	func getSpellTextField(name: String, field: String) throws -> String? {
+	public func getSpellTextField(name: String, field: String) throws -> String? {
 		
 		let sqPtr : OpaquePointer = try openSpellDB()
 		// name is case-sensitive
@@ -319,7 +319,7 @@ public actor SpellDBAccess : DBAccess {
 		return i
 	}
 	
-	func spellNameExists(name: String) -> Bool {
+	public func spellNameExists(name: String) -> Bool {
 		//if allSpellNames.contains(name) { return true }
 		
 		let sqPtr : OpaquePointer! = try? openSpellDB()
@@ -350,7 +350,7 @@ public actor SpellDBAccess : DBAccess {
 	
 	fileprivate var bloodLines : Set<String>? = nil
 	
-	func getAllBloodlines() throws -> Set<String> {
+	public func getAllBloodlines() throws -> Set<String> {
 		if bloodLines != nil { return bloodLines! }
 		
 		let d = try getAllTextValues(field: "bloodlines")
@@ -368,7 +368,7 @@ public actor SpellDBAccess : DBAccess {
 	
 	fileprivate var domains : Set<String>? = nil
 	
-	func getAllDomains() throws -> Set<String> {
+	public func getAllDomains() throws -> Set<String> {
 		if domains != nil { return domains! }
 		
 		let d = try getAllTextValues(field: "domains")
@@ -386,7 +386,7 @@ public actor SpellDBAccess : DBAccess {
 	
 	fileprivate var spellFields : [String:SpellFields] = [:]
 	
-	func allFieldsFor(spell: String) throws -> SpellFields {
+	public func allFieldsFor(spell: String) throws -> SpellFields {
 		if let s = spellFields[spell] { return s }
 		
 		var sf = SpellFields()
@@ -441,7 +441,7 @@ public actor SpellDBAccess : DBAccess {
 		
 	}
 	
-	func getSpellObject(spell: String) -> Spell? {
+	public func getSpellObject(spell: String) -> Spell? {
 		guard let data = try? allFieldsFor(spell: spell) else {
 			return nil
 		}
@@ -455,7 +455,7 @@ public actor SpellDBAccess : DBAccess {
 	
 	fileprivate var spellsForLevel : [UInt8:Set<String>] = [:]
 	
-	func allSpellsFor(level: UInt8) -> Set<String>? {
+	public func allSpellsFor(level: UInt8) -> Set<String>? {
 		if let s = spellsForLevel[level] { return s }
 		
 		var sqPtr : OpaquePointer! = nil
@@ -528,7 +528,7 @@ public actor SpellDBAccess : DBAccess {
 	fileprivate var levelForSpellCache : [String:UInt8] = [:]
 	
 	/// Returns spell level of spell determined by a specific class order. SpLike ability rules.
-	func levelForSpell(spell: String) -> UInt8? {
+	public func levelForSpell(spell: String) -> UInt8? {
 		var sqPtr : OpaquePointer! = nil
 		var prepStmt : OpaquePointer! = nil
 		if let l = levelForSpellCache[spell] { return l }
@@ -578,7 +578,7 @@ public actor SpellDBAccess : DBAccess {
 	fileprivate var levelForSpellClass : [String:UInt8] = [:]
 	
 	/// Returns spell level of spell for a specific class order. exists indicate if the spell itself exists.
-	func levelForSpell(spell: String, forClass: CharClass) -> (lvl: UInt8?, exists: Bool) {
+	public func levelForSpell(spell: String, forClass: CharClass) -> (lvl: UInt8?, exists: Bool) {
 		let clsLevel = forClass.rawValue + " " + spell
 		var sqPtr : OpaquePointer! = nil
 		var prepStmt : OpaquePointer! = nil
@@ -635,7 +635,7 @@ public actor SpellDBAccess : DBAccess {
 	}
 	fileprivate var spellsForCC : [CCLevel : Set<String>] = [:]
 	
-	func allSpellsFor(charClass: CharClass, level: UInt8) -> Set<String>? {
+	public func allSpellsFor(charClass: CharClass, level: UInt8) -> Set<String>? {
 		if let s = spellsForCC[CCLevel(cc: charClass, lvl: level)] { return s }
 		
 		var sqPtr : OpaquePointer! = nil
@@ -682,7 +682,7 @@ public actor SpellDBAccess : DBAccess {
 	
 	private var charClassSpells : [CharClass : Set<SpellLevel>] = [:]
 	
-	func allSpellsFor(charClass: CharClass) -> Set<SpellLevel>? {
+	public func allSpellsFor(charClass: CharClass) -> Set<SpellLevel>? {
 		if let sl = charClassSpells[charClass] { return sl }
 		var sqPtr : OpaquePointer! = nil
 		var prepStmt : OpaquePointer! = nil
@@ -729,7 +729,7 @@ public actor SpellDBAccess : DBAccess {
 	//--------------------------------------
 	// MARK: - non-protocol
 	
-	func clearCaches() {
+	public func clearCaches() {
 		spellsForCC.removeAll()
 		levelForSpellCache.removeAll()
 		spellsForLevel.removeAll()

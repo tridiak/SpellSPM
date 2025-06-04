@@ -8,16 +8,16 @@
 import Foundation
 
 public final class Spell : Hashable, Sendable {
-	let name : String
+	public let name : String
 	
-	let spellData : SpellFields
-	let source : String
-	let school : SpellSchools
-	let subschool : SpellSubschool?
-	let domains : [String]
-	let bloodlines : [String]
+	public let spellData : SpellFields
+	public let source : String
+	public let school : SpellSchools
+	public let subschool : SpellSubschool?
+	public let domains : [String]
+	public let bloodlines : [String]
 	
-	init(name n: String, data: SpellFields) {
+	public init(name n: String, data: SpellFields) {
 		self.name = n
 		self.spellData = data
 		self.source = spellData.source ?? "other"
@@ -58,51 +58,51 @@ public final class Spell : Hashable, Sendable {
 extension Spell {
 	// MARK: School
 	
-	var schoolAbj : Bool { return school == .abj }
-	var schoolCnj : Bool { return school == .cnj }
-	var schoolDiv : Bool { return school == .div }
-	var schoolEnc : Bool { return school == .enc }
-	var schoolEvo : Bool { return school == .evo }
-	var schoolIll : Bool { return school == .ill }
-	var schoolNec : Bool { return school == .nec }
-	var schoolTrn : Bool { return school == .trn }
-	var schoolUnv : Bool { return school == .unv }
+	public var schoolAbj : Bool { return school == .abj }
+	public var schoolCnj : Bool { return school == .cnj }
+	public var schoolDiv : Bool { return school == .div }
+	public var schoolEnc : Bool { return school == .enc }
+	public var schoolEvo : Bool { return school == .evo }
+	public var schoolIll : Bool { return school == .ill }
+	public var schoolNec : Bool { return school == .nec }
+	public var schoolTrn : Bool { return school == .trn }
+	public var schoolUnv : Bool { return school == .unv }
 	
 	//--------------------------------------
 	// MARK: subschool
 	
-	var hasCalling : Bool { return subschool == .calling }
-	var hasCharm : Bool { return subschool == .charm }
-	var hasCompulsion : Bool { return subschool == .compulsion }
-	var hasCreation : Bool { return subschool == .creation }
-	var hasFigment : Bool { return subschool == .figment }
-	var hasGlamour : Bool { return subschool == .glamour }
-	var hasHealing : Bool { return subschool == .healing }
-	var hasPattern : Bool { return subschool == .pattern }
-	var hasPhantasm : Bool { return subschool == .phantasm }
-	var hasPolymorph : Bool { return subschool == .polymorph }
-	var hasScrying : Bool { return subschool == .scrying }
-	var hasShadow : Bool { return subschool == .shadow }
-	var hasSummoning : Bool { return subschool == .summoning }
-	var hasTeleportation : Bool { return subschool == .teleportation }
-	var hasNoSubschool : Bool { return subschool == nil }
+	public var hasCalling : Bool { return subschool == .calling }
+	public var hasCharm : Bool { return subschool == .charm }
+	public var hasCompulsion : Bool { return subschool == .compulsion }
+	public var hasCreation : Bool { return subschool == .creation }
+	public var hasFigment : Bool { return subschool == .figment }
+	public var hasGlamour : Bool { return subschool == .glamour }
+	public var hasHealing : Bool { return subschool == .healing }
+	public var hasPattern : Bool { return subschool == .pattern }
+	public var hasPhantasm : Bool { return subschool == .phantasm }
+	public var hasPolymorph : Bool { return subschool == .polymorph }
+	public var hasScrying : Bool { return subschool == .scrying }
+	public var hasShadow : Bool { return subschool == .shadow }
+	public var hasSummoning : Bool { return subschool == .summoning }
+	public var hasTeleportation : Bool { return subschool == .teleportation }
+	public var hasNoSubschool : Bool { return subschool == nil }
 	
 	//----------------------
 	// MARK: Source
 	
-	var sourceIsCore : Bool { return source == "core" }
-	var sourceIsAPG : Bool { return source == "apg" }
-	var sourceIsACG : Bool { return source == "acg" }
-	var sourceIsARG : Bool { return source == "arg" }
-	var sourceIsUltimate : Bool { return source == "ultimate" }
-	var sourceIsOther : Bool { return
+	public var sourceIsCore : Bool { return source == "core" }
+	public var sourceIsAPG : Bool { return source == "apg" }
+	public var sourceIsACG : Bool { return source == "acg" }
+	public var sourceIsARG : Bool { return source == "arg" }
+	public var sourceIsUltimate : Bool { return source == "ultimate" }
+	public var sourceIsOther : Bool { return
 		!(sourceIsCore || sourceIsAPG || sourceIsACG || sourceIsARG || sourceIsUltimate)
 	}
 	
 	//--------------------------------------
 	// MARK: Components
 	
-	func isComponent(_ comp: SpellComponents) -> Bool {
+	public func isComponent(_ comp: SpellComponents) -> Bool {
 		return switch comp {
 			case .V:
 				spellData.verbal
@@ -117,27 +117,27 @@ extension Spell {
 		}
 	}
 	
-	var isVerbal : Bool { return isComponent(.V) }
-	var isSomatic : Bool { return isComponent(.S) }
-	var isMaterial : Bool { return isComponent(.M) }
-	var isFocus : Bool { return isComponent(.F) }
-	var isDivFocus : Bool { return isComponent(.DF) }
+	public var isVerbal : Bool { return isComponent(.V) }
+	public var isSomatic : Bool { return isComponent(.S) }
+	public var isMaterial : Bool { return isComponent(.M) }
+	public var isFocus : Bool { return isComponent(.F) }
+	public var isDivFocus : Bool { return isComponent(.DF) }
 	
 	//----------------------
 	// MARK: -
 	
-	var goldCost : Int { return spellData.cost }
+	public var goldCost : Int { return spellData.cost }
 	
-	var isDismissible : Bool { return spellData.dismissible }
+	public var isDismissible : Bool { return spellData.dismissible }
 	
-	var isShapeable : Bool { return spellData.shapeable }
+	public var isShapeable : Bool { return spellData.shapeable }
 	
-	var isMythic : Bool { return spellData.mythic }
+	public var isMythic : Bool { return spellData.mythic }
 	
 	//---------------------------
 	// MARK: Casting Time
 	
-	func isCT(_ ct: SpellCastingTime) -> Bool {
+	public func isCT(_ ct: SpellCastingTime) -> Bool {
 		return switch ct {
 			case .standard:
 				spellData.ct_std
@@ -160,19 +160,19 @@ extension Spell {
 		}
 	}
 	
-	var ctStandard : Bool { return isCT(.standard) }
-	var ctSwift : Bool { return isCT(.swift) }
-	var ctImmediate : Bool { return isCT(.immediate) }
-	var ctFree : Bool { return isCT(.free) }
-	var ctFullRound : Bool { return isCT(.fullRound) }
-	var ctMinutes : Bool { return isCT(.minutes) }
-	var ctHours : Bool { return isCT(.hours) }
-	var ctOther : Bool { return isCT(.other) }
+	public var ctStandard : Bool { return isCT(.standard) }
+	public var ctSwift : Bool { return isCT(.swift) }
+	public var ctImmediate : Bool { return isCT(.immediate) }
+	public var ctFree : Bool { return isCT(.free) }
+	public var ctFullRound : Bool { return isCT(.fullRound) }
+	public var ctMinutes : Bool { return isCT(.minutes) }
+	public var ctHours : Bool { return isCT(.hours) }
+	public var ctOther : Bool { return isCT(.other) }
 	
 	//---------------------------
 	// MARK: Char Class
 	
-	func isCharClass(_ cc: CharClass) -> Bool {
+	public func isCharClass(_ cc: CharClass) -> Bool {
 		return switch cc {
 			case .sorcerer:
 				spellData.sor != nil
@@ -227,32 +227,32 @@ extension Spell {
 		}
 	}
 	
-	var isSorcerer : Bool { return isCharClass(.sorcerer) }
-	var isWizard : Bool { return isCharClass(.wizard) }
-	var isCleric : Bool { return isCharClass(.cleric) }
-	var isDruid : Bool { return isCharClass(.druid) }
-	var isRanger : Bool { return isCharClass(.ranger) }
-	var isBard : Bool { return isCharClass(.bard) }
-	var isPaladin : Bool { return isCharClass(.paladin) }
-	var isAlchemist : Bool { return isCharClass(.alchemist) }
-	var isSummoner : Bool { return isCharClass(.summoner) }
-	var isWitch : Bool { return isCharClass(.witch) }
-	var isInquisitor : Bool { return isCharClass(.inquisitor) }
-	var isOracle : Bool { return isCharClass(.oracle) }
-	var isAntipaladin : Bool { return isCharClass(.antipaladin) }
-	var isMagus : Bool { return isCharClass(.magus) }
-	var isAdept : Bool { return isCharClass(.adept) }
-	var isBloodrager : Bool { return isCharClass(.bloodrager) }
-	var isShaman : Bool { return isCharClass(.shaman) }
-	var isPsychic : Bool { return isCharClass(.psychic) }
-	var isMedium : Bool { return isCharClass(.medium) }
-	var isMesmerist : Bool { return isCharClass(.mesmerist) }
-	var isOccultist : Bool { return isCharClass(.occultist) }
-	var isSpiritualist : Bool { return isCharClass(.spiritualist) }
-	var isArcanist : Bool { return isCharClass(.arcanist) }
-	// var isSkald : Bool { return isCharClass(.skald) }
-	// var isWarpriest : Bool { return isCharClass(.warpriest) }
-	var isHunter : Bool { return isCharClass(.hunter) }
+	public var isSorcerer : Bool { return isCharClass(.sorcerer) }
+	public var isWizard : Bool { return isCharClass(.wizard) }
+	public var isCleric : Bool { return isCharClass(.cleric) }
+	public var isDruid : Bool { return isCharClass(.druid) }
+	public var isRanger : Bool { return isCharClass(.ranger) }
+	public var isBard : Bool { return isCharClass(.bard) }
+	public var isPaladin : Bool { return isCharClass(.paladin) }
+	public var isAlchemist : Bool { return isCharClass(.alchemist) }
+	public var isSummoner : Bool { return isCharClass(.summoner) }
+	public var isWitch : Bool { return isCharClass(.witch) }
+	public var isInquisitor : Bool { return isCharClass(.inquisitor) }
+	public var isOracle : Bool { return isCharClass(.oracle) }
+	public var isAntipaladin : Bool { return isCharClass(.antipaladin) }
+	public var isMagus : Bool { return isCharClass(.magus) }
+	public var isAdept : Bool { return isCharClass(.adept) }
+	public var isBloodrager : Bool { return isCharClass(.bloodrager) }
+	public var isShaman : Bool { return isCharClass(.shaman) }
+	public var isPsychic : Bool { return isCharClass(.psychic) }
+	public var isMedium : Bool { return isCharClass(.medium) }
+	public var isMesmerist : Bool { return isCharClass(.mesmerist) }
+	public var isOccultist : Bool { return isCharClass(.occultist) }
+	public var isSpiritualist : Bool { return isCharClass(.spiritualist) }
+	public var isArcanist : Bool { return isCharClass(.arcanist) }
+	// public var isSkald : Bool { return isCharClass(.skald) }
+	// public var isWarpriest : Bool { return isCharClass(.warpriest) }
+	public var isHunter : Bool { return isCharClass(.hunter) }
 	
 	//---------------------------
 	
@@ -444,63 +444,63 @@ extension Spell {
 		}
 	}
 	
-	var descAcid : Bool { return spellData.acid }
-	var descAir : Bool { return spellData.air }
-	var descChaotic : Bool { return spellData.chaotic }
-	var descCold : Bool { return spellData.cold }
-	var descCurse : Bool { return spellData.curse }
-	var descDarkness : Bool { return spellData.darkness }
-	var descDeath : Bool { return spellData.death }
-	var descDisease : Bool { return spellData.disease }
-	var descEarth : Bool { return spellData.earth }
-	var descElectricity : Bool { return spellData.electricity }
-	var descEmotion : Bool { return spellData.emotion }
-	var descEvil : Bool { return spellData.evil }
-	var descFear : Bool { return spellData.fear }
-	var descFire : Bool { return spellData.fire }
-	var descForce : Bool { return spellData.force }
-	var descGood : Bool { return spellData.good }
-	var descLanguageDep : Bool { return spellData.language_dependent }
-	var descLawful : Bool { return spellData.lawful }
-	var descLight : Bool { return spellData.light }
-	var descMindAffecting : Bool { return spellData.mind_affecting }
-	var descPain : Bool { return spellData.pain }
-	var descPoison : Bool { return spellData.poison }
-	var descShadow : Bool { return spellData.shadow }
-	var descSonic : Bool { return spellData.sonic }
-	var descWater : Bool { return spellData.water }
+	public var descAcid : Bool { return spellData.acid }
+	public var descAir : Bool { return spellData.air }
+	public var descChaotic : Bool { return spellData.chaotic }
+	public var descCold : Bool { return spellData.cold }
+	public var descCurse : Bool { return spellData.curse }
+	public var descDarkness : Bool { return spellData.darkness }
+	public var descDeath : Bool { return spellData.death }
+	public var descDisease : Bool { return spellData.disease }
+	public var descEarth : Bool { return spellData.earth }
+	public var descElectricity : Bool { return spellData.electricity }
+	public var descEmotion : Bool { return spellData.emotion }
+	public var descEvil : Bool { return spellData.evil }
+	public var descFear : Bool { return spellData.fear }
+	public var descFire : Bool { return spellData.fire }
+	public var descForce : Bool { return spellData.force }
+	public var descGood : Bool { return spellData.good }
+	public var descLanguageDep : Bool { return spellData.language_dependent }
+	public var descLawful : Bool { return spellData.lawful }
+	public var descLight : Bool { return spellData.light }
+	public var descMindAffecting : Bool { return spellData.mind_affecting }
+	public var descPain : Bool { return spellData.pain }
+	public var descPoison : Bool { return spellData.poison }
+	public var descShadow : Bool { return spellData.shadow }
+	public var descSonic : Bool { return spellData.sonic }
+	public var descWater : Bool { return spellData.water }
 	
 	//------------------------------------
 	// MARK: SR
 	
-	var srYes : Bool { return spellData.sr_yes }
-	var srNo : Bool { return spellData.sr_no }
-	var srObject : Bool { return spellData.sr_object }
-	var srHarmless : Bool { return spellData.sr_harmless }
+	public var srYes : Bool { return spellData.sr_yes }
+	public var srNo : Bool { return spellData.sr_no }
+	public var srObject : Bool { return spellData.sr_object }
+	public var srHarmless : Bool { return spellData.sr_harmless }
 	
 	// MARK: Saves
 	
-	var fortNeg : Bool { return spellData.fortNeg }
-	var fortHalf : Bool { return spellData.fortHalf }
-	var fortPart : Bool { return spellData.fortPart }
-	var refNeg : Bool { return spellData.refNeg }
-	var refHalf : Bool { return spellData.refHalf }
-	var refPart : Bool { return spellData.refPart }
-	var willNeg : Bool { return spellData.willNeg }
-	var willHalf : Bool { return spellData.willHalf }
-	var willPart : Bool { return spellData.willPart }
-	var willDis : Bool { return spellData.willDis }
-	var fort : Bool { return fortNeg || fortHalf || fortPart }
-	var reflex : Bool { return refNeg || refHalf || refPart }
-	var will : Bool { return willDis || willNeg || willHalf || willPart }
+	public var fortNeg : Bool { return spellData.fortNeg }
+	public var fortHalf : Bool { return spellData.fortHalf }
+	public var fortPart : Bool { return spellData.fortPart }
+	public var refNeg : Bool { return spellData.refNeg }
+	public var refHalf : Bool { return spellData.refHalf }
+	public var refPart : Bool { return spellData.refPart }
+	public var willNeg : Bool { return spellData.willNeg }
+	public var willHalf : Bool { return spellData.willHalf }
+	public var willPart : Bool { return spellData.willPart }
+	public var willDis : Bool { return spellData.willDis }
+	public var fort : Bool { return fortNeg || fortHalf || fortPart }
+	public var reflex : Bool { return refNeg || refHalf || refPart }
+	public var will : Bool { return willDis || willNeg || willHalf || willPart }
 	
 	//--------------------------------
 	// MARK: duration
 	
-	var durInstantaneous : Bool { return spellData.dur_instan }
-	var durRounds : Bool { return spellData.dur_rds }
-	var durMinutes : Bool { return spellData.dur_mins }
-	var durHours : Bool { return spellData.dur_hours }
+	public var durInstantaneous : Bool { return spellData.dur_instan }
+	public var durRounds : Bool { return spellData.dur_rds }
+	public var durMinutes : Bool { return spellData.dur_mins }
+	public var durHours : Bool { return spellData.dur_hours }
 	
 	//----------------------------------
 	// MARK: range
@@ -521,40 +521,40 @@ extension Spell {
 		}
 	}
 	
-	var rgePersonal : Bool { return isRange(.personal) }
-	var rgeTouch : Bool { return isRange(.touch) }
-	var rgeClose : Bool { return isRange(.close) }
-	var rgeMedium : Bool { return isRange(.medium) }
-	var rgeLong : Bool { return isRange(.long) }
-	var isSetDistance : Bool { return isRange(.feet(0)) }
+	public var rgePersonal : Bool { return isRange(.personal) }
+	public var rgeTouch : Bool { return isRange(.touch) }
+	public var rgeClose : Bool { return isRange(.close) }
+	public var rgeMedium : Bool { return isRange(.medium) }
+	public var rgeLong : Bool { return isRange(.long) }
+	public var isSetDistance : Bool { return isRange(.feet(0)) }
 	
 	/// feet comparison only
-	func rangeLT(feet: UInt) -> Bool {
+	public func rangeLT(feet: UInt) -> Bool {
 		return spellData.rge_feet < feet
 	}
 	
-	func rangeLTE(feet: UInt) -> Bool {
+	public func rangeLTE(feet: UInt) -> Bool {
 		return spellData.rge_feet <= feet
 	}
 	
-	func rangeGT(feet: UInt) -> Bool {
+	public func rangeGT(feet: UInt) -> Bool {
 		return spellData.rge_feet > feet
 	}
 	
-	func rangeGTE(feet: UInt) -> Bool {
+	public func rangeGTE(feet: UInt) -> Bool {
 		return spellData.rge_feet >= feet
 	}
 	
-	func rangeEQ(feet: UInt) -> Bool {
+	public func rangeEQ(feet: UInt) -> Bool {
 		return spellData.rge_feet == feet
 	}
 	
-	func rangeNE(feet: UInt) -> Bool {
+	public func rangeNE(feet: UInt) -> Bool {
 		return spellData.rge_feet != feet
 	}
 	
 	/// Comparison order: personal, touch, close, medium, long. Feet field is ignored.
-	func rangeLT(feet: UInt, CL: UInt8) -> Bool {
+	public func rangeLT(feet: UInt, CL: UInt8) -> Bool {
 		if rgePersonal { return true }
 		if rgeTouch { return true }
 		if rgeClose { return 25 + (UInt(CL) / 2) * 5 < feet }
@@ -563,7 +563,7 @@ extension Spell {
 		return false
 	}
 	
-	func rangeLTE(feet: UInt, CL: UInt8) -> Bool {
+	public func rangeLTE(feet: UInt, CL: UInt8) -> Bool {
 		if rgePersonal { return true }
 		if rgeTouch { return true }
 		if rgeClose { return 25 + (UInt(CL) / 2) * 5 <= feet }
@@ -572,7 +572,7 @@ extension Spell {
 		return false
 	}
 	
-	func rangeGT(feet: UInt, CL: UInt8) -> Bool {
+	public func rangeGT(feet: UInt, CL: UInt8) -> Bool {
 		if rgePersonal { return false }
 		if rgeTouch { return false }
 		if rgeClose { return 25 + (UInt(CL) / 2) * 5 > feet }
@@ -581,7 +581,7 @@ extension Spell {
 		return false
 	}
 	
-	func rangeGTE(feet: UInt, CL: UInt8) -> Bool {
+	public func rangeGTE(feet: UInt, CL: UInt8) -> Bool {
 		if rgePersonal { return feet == 0 }
 		if rgeTouch { return feet == 0 }
 		if rgeClose { return 25 + (UInt(CL) / 2) * 5 >= feet }
@@ -592,86 +592,86 @@ extension Spell {
 	
 	// MARK: -
 	
-	var isSingleTarget : Bool { return spellData.sglTarget }
-	var isTargetsPerCL : Bool { return spellData.targetPerCL }
+	public var isSingleTarget : Bool { return spellData.sglTarget }
+	public var isTargetsPerCL : Bool { return spellData.targetPerCL }
 	
-	var isBurst : Bool { return spellData.burst }
-	var isCone : Bool { return spellData.cone }
-	var isSpread : Bool { return spellData.spread }
-	var isLine : Bool { return spellData.line }
-	var isEmanation : Bool { return spellData.emanation }
-	var isCylinder : Bool { return spellData.cylinder }
+	public var isBurst : Bool { return spellData.burst }
+	public var isCone : Bool { return spellData.cone }
+	public var isSpread : Bool { return spellData.spread }
+	public var isLine : Bool { return spellData.line }
+	public var isEmanation : Bool { return spellData.emanation }
+	public var isCylinder : Bool { return spellData.cylinder }
 	
 	// MARK: -
 	
-	var isDomain : Bool { return !domains.isEmpty }
-	var isBloodline : Bool { return !bloodlines.isEmpty }
+	public var isDomain : Bool { return !domains.isEmpty }
+	public var isBloodline : Bool { return !bloodlines.isEmpty }
 	
-	func hasDomain(name: String) -> Bool {
+	public func hasDomain(name: String) -> Bool {
 		return domains.contains(name.lowercased())
 	}
 	
-	func hasBloodline(name: String) -> Bool {
+	public func hasBloodline(name: String) -> Bool {
 		return bloodlines.contains(name.lowercased())
 	}
 	
 	//-----------------------
 	// MARK: metamagic
 	
-	var canMMEmpowered : Bool { return spellData.empower }
-	var canMMBrisk : Bool { return spellData.brisk }
-	var canMMIntensified : Bool { return spellData.intensify }
-	var canMMUmbral : Bool { return spellData.umbral }
-	var canMMVast : Bool { return spellData.vast }
-	var canMMWiden : Bool { return spellData.widen }
-	var canMMYaiMimic : Bool { return spellData.yai }
-	var isHPDmg : Bool { return spellData.hp_dmg }
-	var canMMAuthorative : Bool { return isSingleTarget }
-	var canMMBenthic : Bool { return descAcid || descCold || descElectricity || descFire }
-	var canMMBlissful : Bool { return isSingleTarget }
-	var canMMBrackish : Bool { return descWater }
-	var canMMBurning : Bool { return descAcid || descFire }
-	var canMMCentred : Bool { return durInstantaneous && (isBurst || isEmanation || isSpread || isCylinder ) }
-	var canMMConcussive : Bool { return descSonic }
-	var canMMCrypt : Bool { return isHPDmg }
-	var canMMEclipsed : Bool { return descLight || descDarkness }
-	var canMMElemental : Bool { return descFire || descCold || descAcid || descElectricity }
-	var canMMEnlarge : Bool { return rgeClose || rgeMedium || rgeLong }
-	var canMMFearsome : Bool { return isHPDmg }
-	var canMMFlaring : Bool { return descFire || descLight || descElectricity }
-	var canMMFurious : Bool { return isHPDmg }
-	var canMMLatentCurse : Bool { return descCurse }
-	var canMMLingering : Bool { return durInstantaneous }
-	var canMMMaximised : Bool { return spellData.empower }
-	var canMMMerciful : Bool { return isHPDmg }
-	var canMMPersistent : Bool { return fort || reflex || will }
-	var canMMQuicken : Bool { return ctStandard }
-	var canMMReach : Bool { return rgeTouch || rgeClose || rgeMedium }
-	var canMMRime : Bool { return isHPDmg && descCold }
-	var canMMScarring : Bool { return descEmotion || descFear }
-	var canMMScouting : Bool { return schoolCnj && hasSummoning }
-	var canMMSilent : Bool { return isVerbal }
-	var canMMSolar : Bool { return descLight }
-	var canMMStill : Bool { return isSomatic }
-	var canMMSteam : Bool { return descFire }
-	var canMMTenebrous : Bool { return descLight }
-	var canMMThreateningIllusion : Bool { return schoolIll && hasFigment }
-	var canMMThrenodic : Bool { return descMindAffecting }
-	var canMMThundering : Bool { return isHPDmg }
-	var canMMToxic : Bool { return fortNeg && !descPoison }
-	var canMMTraumatic : Bool { return descEmotion && descFear }
-	var canMMTrick : Bool { return schoolEnc && willNeg && isSingleTarget }
+	public var canMMEmpowered : Bool { return spellData.empower }
+	public var canMMBrisk : Bool { return spellData.brisk }
+	public var canMMIntensified : Bool { return spellData.intensify }
+	public var canMMUmbral : Bool { return spellData.umbral }
+	public var canMMVast : Bool { return spellData.vast }
+	public var canMMWiden : Bool { return spellData.widen }
+	public var canMMYaiMimic : Bool { return spellData.yai }
+	public var isHPDmg : Bool { return spellData.hp_dmg }
+	public var canMMAuthorative : Bool { return isSingleTarget }
+	public var canMMBenthic : Bool { return descAcid || descCold || descElectricity || descFire }
+	public var canMMBlissful : Bool { return isSingleTarget }
+	public var canMMBrackish : Bool { return descWater }
+	public var canMMBurning : Bool { return descAcid || descFire }
+	public var canMMCentred : Bool { return durInstantaneous && (isBurst || isEmanation || isSpread || isCylinder ) }
+	public var canMMConcussive : Bool { return descSonic }
+	public var canMMCrypt : Bool { return isHPDmg }
+	public var canMMEclipsed : Bool { return descLight || descDarkness }
+	public var canMMElemental : Bool { return descFire || descCold || descAcid || descElectricity }
+	public var canMMEnlarge : Bool { return rgeClose || rgeMedium || rgeLong }
+	public var canMMFearsome : Bool { return isHPDmg }
+	public var canMMFlaring : Bool { return descFire || descLight || descElectricity }
+	public var canMMFurious : Bool { return isHPDmg }
+	public var canMMLatentCurse : Bool { return descCurse }
+	public var canMMLingering : Bool { return durInstantaneous }
+	public var canMMMaximised : Bool { return spellData.empower }
+	public var canMMMerciful : Bool { return isHPDmg }
+	public var canMMPersistent : Bool { return fort || reflex || will }
+	public var canMMQuicken : Bool { return ctStandard }
+	public var canMMReach : Bool { return rgeTouch || rgeClose || rgeMedium }
+	public var canMMRime : Bool { return isHPDmg && descCold }
+	public var canMMScarring : Bool { return descEmotion || descFear }
+	public var canMMScouting : Bool { return schoolCnj && hasSummoning }
+	public var canMMSilent : Bool { return isVerbal }
+	public var canMMSolar : Bool { return descLight }
+	public var canMMStill : Bool { return isSomatic }
+	public var canMMSteam : Bool { return descFire }
+	public var canMMTenebrous : Bool { return descLight }
+	public var canMMThreateningIllusion : Bool { return schoolIll && hasFigment }
+	public var canMMThrenodic : Bool { return descMindAffecting }
+	public var canMMThundering : Bool { return isHPDmg }
+	public var canMMToxic : Bool { return fortNeg && !descPoison }
+	public var canMMTraumatic : Bool { return descEmotion && descFear }
+	public var canMMTrick : Bool { return schoolEnc && willNeg && isSingleTarget }
 }
 
 //------------------------------------------------
 // MARK: - Spell Storage
 
 public actor SpellStorage {
-	init() throws {
+	public init() throws {
 		spellDB = try SpellDBAccess()
 	}
 	
-	init(dbPath: String) throws {
+	public init(dbPath: String) throws {
 		spellDB = try SpellDBAccess(dbPath: dbPath)
 	}
 	
@@ -695,7 +695,7 @@ public actor SpellStorage {
 		return data
 	}
 	
-	func getSpell(name: String) -> Spell? {
+	public func getSpell(name: String) -> Spell? {
 		let n = name.trimmingCharacters(in: .whitespacesAndNewlines)
 		
 		return spells[n]
@@ -703,7 +703,7 @@ public actor SpellStorage {
 	
 	
 	/// Memory release.
-	func purgeAllSpells() {
+	public func purgeAllSpells() {
 		spells.removeAll()
 	}
 }

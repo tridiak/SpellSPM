@@ -9,21 +9,21 @@
 import Foundation
 
 extension String {
-	static let CompareOptsNone = String.CompareOptions.init(rawValue: 0)
+	public static let CompareOptsNone = String.CompareOptions.init(rawValue: 0)
 	
 	/// Checks if a character contains any Unicode scalar in the given CharacterSet
-		static func charInSet(_ char: Character, set: CharacterSet) -> Bool {
-			return char.unicodeScalars.contains(where: set.contains)
-		}
+	public static func charInSet(_ char: Character, set: CharacterSet) -> Bool {
+		return char.unicodeScalars.contains(where: set.contains)
+	}
 
-		/// Returns a new string with characters removed if they are in the given CharacterSet
-		func removingCharacters(in set: CharacterSet) -> String {
-			return self.filter { !String.charInSet($0, set: set) }
-		}
+	/// Returns a new string with characters removed if they are in the given CharacterSet
+	public func removingCharacters(in set: CharacterSet) -> String {
+		return self.filter { !String.charInSet($0, set: set) }
+	}
 	
 	/// Mutates the string by removing characters in set.
 	/// - Parameter set: Characters to remove.
-	mutating func removeFromM(set: CharacterSet) {
+	public mutating func removeFromM(set: CharacterSet) {
 		self = removingCharacters(in: set)
 	}
 	
@@ -32,7 +32,7 @@ extension String {
 	/// Calls through to RemoveFrom(set:CharacterSet)
 	/// - Parameter set: string contains characters to remove.
 	/// - Returns: resultant string
-	func removeFrom(set: String) -> String {
+	public func removeFrom(set: String) -> String {
 		let S = CharacterSet.init(charactersIn: set)
 		
 		return removingCharacters(in: S)
@@ -40,7 +40,7 @@ extension String {
 	
 	/// Mutates the string by removing characters in set.
 	/// - Parameter set: string contains characters to remove.
-	mutating func removeFromM(set: String) {
+	public mutating func removeFromM(set: String) {
 		self = removeFrom(set: set)
 	}
 	
@@ -53,7 +53,7 @@ extension String {
 	
 	/// Mutates the string by keeping the characters in set.
 	/// - Parameter set: Characters to remove.
-	mutating func KeepThoseInM(set: CharacterSet) {
+	public mutating func KeepThoseInM(set: CharacterSet) {
 		self = keepThoseIn(set: set)
 	}
 	
@@ -61,7 +61,7 @@ extension String {
 	/// Calls through to KeepThoseIn(set:CharacterSet)
 	/// - Parameter set: string contains characters to keep.
 	/// - Returns: resultant string
-	func keepThoseIn(set: String) -> String {
+	public func keepThoseIn(set: String) -> String {
 		let S = CharacterSet.init(charactersIn: set)
 		
 		return keepThoseIn(set: S)
@@ -69,13 +69,13 @@ extension String {
 	
 	/// Mutates the string by keeping the characters in set.
 	/// - Parameter set: Characters to remove.
-	mutating func KeepThoseInM(set: String) {
+	public mutating func KeepThoseInM(set: String) {
 		self = keepThoseIn(set: set)
 	}
 	
 	//--------------------------------
 	
-	func containsOnlyCharacters(in characterSet: CharacterSet) -> Bool {
+	public func containsOnlyCharacters(in characterSet: CharacterSet) -> Bool {
 		// Check if all characters in the string are contained in the characterSet
 		self.unicodeScalars.allSatisfy { characterSet.contains($0) }
 	}
@@ -83,7 +83,7 @@ extension String {
 	//----------------------------------
 	
 	/// Return a string where all characters in 'chars' are replace with 'with'.
-	func replaceAll(chars: CharacterSet, with: Character) -> String {
+	public func replaceAll(chars: CharacterSet, with: Character) -> String {
 		return String(self.map { C in
 			if String.charInSet(C, set: chars) {
 				return with
@@ -95,25 +95,25 @@ extension String {
 	}
 	
 	/// Replace all characters in 'chars' with character 'with'.
-	mutating func replaceAllM(chars: CharacterSet, with: Character) {
+	public mutating func replaceAllM(chars: CharacterSet, with: Character) {
 		self = replaceAll(chars: chars, with: with)
 	}
 	
 	/// Return a string where all characters in 'chars' are replace with 'with'.
-	func replaceAll(chars: String, with: Character) -> String {
+	public func replaceAll(chars: String, with: Character) -> String {
 		let S = CharacterSet.init(charactersIn: chars)
 		
 		return replaceAll(chars: S, with: with)
 	}
 	
 	/// Replace all characters in 'chars' with character 'with'.
-	mutating func ReplaceAllM(chars: String, with: Character) {
+	public mutating func ReplaceAllM(chars: String, with: Character) {
 		self =  replaceAll(chars: chars, with: with)
 	}
 	
 	//------------------------------------
 	/// Count of character
-	func countOf(char: Character) -> UInt {
+	public func countOf(char: Character) -> UInt {
 		return UInt(self.count { C in
 			return C == char
 		})
@@ -121,7 +121,7 @@ extension String {
 	
 	/// Return string after last character 'char'.
 	/// If character does not exist, nil will be returned.
-	func stringAfterLast(char: Character) -> String? {
+	public func stringAfterLast(char: Character) -> String? {
 		guard let idx = self.range(of: String(char), options: String.CompareOptions.backwards, range: nil, locale: nil)
 			else { return nil }
 		
@@ -132,7 +132,7 @@ extension String {
 	
 	/// Return string before LAST character 'char'.
 	/// If character does not exist, nil will be returned.
-	func stringBeforeLast(char: Character) -> String? {
+	public func stringBeforeLast(char: Character) -> String? {
 		guard let idx = self.range(of: String(char), options: String.CompareOptions.backwards, range: nil, locale: nil)
 			else { return nil }
 		
@@ -145,7 +145,7 @@ extension String {
 	
 	/// Returns a string where consecutive characters are reduced to a single character.
 	/// 'AAABBCDDDEE' -> 'ABCDE'
-	func reduceConsecutiveChars() -> String {
+	public func reduceConsecutiveChars() -> String {
 		var s : String = ""
 		var lastC : Character = "\0"
 		
@@ -160,13 +160,13 @@ extension String {
 	}
 	
 	/// Eliminates consecutive characters.
-	mutating func reduceConsecutiveCharsM() {
+	public mutating func reduceConsecutiveCharsM() {
 		self = reduceConsecutiveChars()
 	}
 	
 	/// Returns a string where consecutive occurrences of 'char' are reduce to a single character.
 	/// 'AABBCCCDDDEEEEE' char = 'D' -> 'AABBCCDEEEE'
-	func reduceConsecutiveCharsOf(char: Character) -> String {
+	public func reduceConsecutiveCharsOf(char: Character) -> String {
 		
 		var s : String = ""
 		var currC : Character = "\0"
@@ -183,14 +183,14 @@ extension String {
 	}
 	
 	/// Reduce consecutive occurrences of 'char' to a single character.
-	mutating func reduceConsecutiveCharsOfM(char: Character) {
+	public mutating func reduceConsecutiveCharsOfM(char: Character) {
 		self = reduceConsecutiveCharsOf(char: char)
 	}
 	
 	//------------------------------------
 	
 	/// String to ULL with magnitude suffix. Recognised suffixes: byte/KiB/MiB/GiB/TiB/PiB/KB/MB/GB/TB/PB.
-	func convertSuffixedToUInt() -> UInt? {
+	public func convertSuffixedToUInt() -> UInt? {
 		let line = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 		if line.isEmpty { return nil }
 		
@@ -234,7 +234,7 @@ extension String {
 	
 	/// Split string into equal count of charCount.
 	/// If string count is not a multiple of charCount, nil will be returned.
-	func equalSplit(charCount: UInt) -> [String]? {
+	public func equalSplit(charCount: UInt) -> [String]? {
 		if charCount == 0 || (UInt(self.count) % charCount) != 0 { return nil }
 		
 		var ary : [String] = []
@@ -264,7 +264,7 @@ extension String {
 	///   - down: Down or close character.
 	/// - Returns: Will return nil if up = down, up = sep, down = sep, count(up) != count(down) or "level" drops below 0.
 	///	Otherwise it will return an array of components.
-	func sameLevelSplit(separator sep: Character, upMarker up: Character, downMarker down: Character) -> [String]? {
+	public func sameLevelSplit(separator sep: Character, upMarker up: Character, downMarker down: Character) -> [String]? {
 		if up == down || sep == up || sep == down { return nil }
 		if self.countOf(char: up) != self.countOf(char: down) { return nil }
 		if self.countOf(char: up) == 0  { return self.split(separator: sep).toStringArray() }
@@ -288,7 +288,7 @@ extension String {
 	
 	/// Return two substrings before and after first occurrence of 'separator'.
 	/// If marker is not found, result.before will return self and result.after will return nil.
-	func beforeAndAfter(marker: String) -> (before:String,after:String?) {
+	public func beforeAndAfter(marker: String) -> (before:String,after:String?) {
 		guard let idx = self.range(of: marker) else { return (self, nil) }
 		
 		let B = String( self[..<idx.lowerBound] )
@@ -297,12 +297,12 @@ extension String {
 		return (B,A)
 	}
 	
-	static let hexToValue : [Character:UInt] = ["0":0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8,
+	public static let hexToValue : [Character:UInt] = ["0":0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8,
 										 "9":9, "A":10, "a":10, "B":11, "b":11, "C":12, "c":12, "D":13,
 										 "d":13, "E":14, "e":14, "F":15, "f":15]
 	
 	/// Convert hex to UInt
-	func hexToUInt() -> UInt? {
+	public func hexToUInt() -> UInt? {
 		if isEmpty { return nil }
 		if self.count > 16 { return nil }
 		
@@ -317,7 +317,7 @@ extension String {
 	}
 	
 	/// Get Nth character of string.
-	func getChar(N: Int) -> Character? {
+	public func getChar(N: Int) -> Character? {
 		if N < 0 || self.isEmpty { return nil }
 		if N >= self.count { return nil }
 		if N == 0 { return self.first! }
@@ -327,7 +327,7 @@ extension String {
 	}
 	
 	/// Get Nth character index.
-	func getNthIndex(_ N: Int) -> String.Index? {
+	public func getNthIndex(_ N: Int) -> String.Index? {
 		if N < 0 || self.isEmpty { return nil }
 		if N >= self.count { return nil }
 		if N == 0 { return startIndex }
@@ -336,28 +336,28 @@ extension String {
 	}
 	
 	/// Append string if self is not empty
-	mutating func appendIfNotEmpty(_ S: String) {
+	public mutating func appendIfNotEmpty(_ S: String) {
 		if !isEmpty { self.append(S) }
 	}
 	
 	/// Passed character is removed if it is the last character in the string.
-	@discardableResult mutating func removeIfLast(char: Character) -> String {
+	@discardableResult public mutating func removeIfLast(char: Character) -> String {
 		if let C = self.last, C == char  { self.removeLast() }
 		return self
 	}
 	
 	/// Returns true if string starts with passed string
-	func firstPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
+	public func firstPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
 		return self.range(of: S, options: options, range: nil, locale: nil)?.lowerBound == self.startIndex
 	}
 	
 	/// Returns true if string ends with passed string
-	func lastPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
+	public func lastPartIs(_ S: String, options: String.CompareOptions = CompareOptsNone) -> Bool {
 		return self.range(of: S, options: options.union(CompareOptions.backwards), range: nil, locale: nil)?.upperBound == self.endIndex
 	}
 	
 	/// Returns true and the element if any element in the passed String sequence is the first part of the String
-	func firstPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
+	public func firstPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
 		for s in S {
 			if firstPartIs(s, options: options) { return (true, s) }
 		}
@@ -365,7 +365,7 @@ extension String {
 	}
 	
 	/// Returns true and the element if any element in the passed String sequence is the last part of the String
-	func lastPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
+	public func lastPartIsOne<T: Sequence>(of S: T, options: String.CompareOptions = CompareOptsNone) -> (B:Bool, S:String?) where T.Element == String {
 		for s in S {
 			if lastPartIs(s, options: options) { return (true, s) }
 		}
@@ -374,7 +374,7 @@ extension String {
 	
 	/// Compares two optional strings. If both are nil, true is returned.
 	/// If one is nil, false is returned. Otherwise standard string comparison.
-	static func compareNil(_ s1 : String?, _ s2 : String?) -> Bool {
+	public static func compareNil(_ s1 : String?, _ s2 : String?) -> Bool {
 		if s1 == nil && s2 == nil { return true }
 		if s1 == nil || s2 == nil { return false }
 		return s1! == s2!
@@ -384,7 +384,7 @@ extension String {
 	/// If count requested is 0, an empty string will be returned.
 	/// Not the most efficient method so keep the count small.
 	@available(*, deprecated, message: "Use [...GetNthIndex()] instead")
-	func firstNChars(count ct: UInt) -> String? {
+	public func firstNChars(count ct: UInt) -> String? {
 		if count == 0 { return nil }
 		if ct == 0 { return "" }
 		var s = ""
@@ -401,7 +401,7 @@ extension String {
 	/// Return substring after '.'
 	///
 	/// - Returns: nil if extension(.) does not exist, otherwise (extension, everything before '.')
-	func getExtension() -> (ext:String, rem:String)? {
+	public func getExtension() -> (ext:String, rem:String)? {
 		guard let idx = self.range(of: ".", options: String.CompareOptions.backwards, range: nil, locale: nil) else {
 			return nil
 		}
@@ -415,7 +415,7 @@ extension String {
 	///
 	/// - Parameter to: new extension. Can be empty.
 	/// - Returns: String with new extension or original string if there is no extension.
-	func changeExtension(to:String) -> String {
+	public func changeExtension(to:String) -> String {
 		guard let idx = self.range(of: ".", options: String.CompareOptions.backwards, range: nil, locale: nil) else {
 			return self
 		}
@@ -427,7 +427,7 @@ extension String {
 	/// Remove extension and the '.'. Searches from end of string.
 	///
 	/// - Returns: orignal string if no extension otherwise all characters before extension
-	func dropExtension() -> String {
+	public func dropExtension() -> String {
 		guard let idx = self.range(of: ".", options: String.CompareOptions.backwards, range: nil, locale: nil) else {
 			return self
 		}
@@ -436,7 +436,7 @@ extension String {
 	}
 	
 	/// Escape ' (single quote) for SQL statements
-	func escapeSingleQuote() -> String {
+	public func escapeSingleQuote() -> String {
 		if self.isEmpty || !self.contains("'") { return self }
 		var s = ""
 		for c in self {
@@ -448,7 +448,7 @@ extension String {
 	}
 	
 	/// Find all between charA & charB. Will return nil if niether character is present. Will return an empty string if characters are adjacent.
-	func inbetween(charA: Character, charB: Character) -> String? {
+	public func inbetween(charA: Character, charB: Character) -> String? {
 		guard var idx = self.firstIndex(of: charA) else { return nil }
 		idx = self.index(after: idx)
 		if idx >= self.endIndex { return nil }
@@ -457,7 +457,7 @@ extension String {
 		return String(ss[..<edx])
 	}
 	
-	func inbetween(charA: Character, charB: Character, range: Range<String.Index>) -> String? {
+	public func inbetween(charA: Character, charB: Character, range: Range<String.Index>) -> String? {
 		let r = self[range]
 		guard var idx = r.firstIndex(of: charA) else { return nil }
 		idx = self.index(after: idx)
@@ -467,7 +467,7 @@ extension String {
 		return String(ss[..<edx])
 	}
 	
-	var isNotEmpty : Bool { return !self.isEmpty }
+	public var isNotEmpty : Bool { return !self.isEmpty }
 }
 
 

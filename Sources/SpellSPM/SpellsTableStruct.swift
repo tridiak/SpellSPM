@@ -8,130 +8,130 @@
 import Foundation
 
 public struct SpellFields : Sendable {
-	var name : String = ""
-	var school : Int = 0
-	var subschool : Int? = nil
-	var source: String? = nil
-	var theme : String? = nil // NYI
-	var verbal : Bool = false
-	var somatic : Bool = false
-	var material : Bool = false
-	var focus : Bool = false
-	var divFocus : Bool = false
-	var cost : Int = 0
-	var dismissible : Bool = false
-	var shapeable : Bool = false
-	var ct : String? = nil
-	var ct_std : Bool = false
-	var ct_swf : Bool = false
-	var ct_immed : Bool = false
-	var ct_free : Bool = false
-	var ct_fullRd : Bool = false
-	var ct_min : Bool = false
-	var ct_hours : Bool = false
-	var sor : UInt8? = nil
-	var wiz : UInt8? = nil
-	var clr : UInt8? = nil
-	var drd : UInt8? = nil
-	var rgr : UInt8? = nil
-	var brd : UInt8? = nil
-	var pal : UInt8? = nil
-	var alc : UInt8? = nil
-	var smn : UInt8? = nil
-	var wit : UInt8? = nil
-	var inq : UInt8? = nil
-	var ora : UInt8? = nil
-	var apal : UInt8? = nil
-	var mag : UInt8? = nil
-	var adp : UInt8? = nil
-	var brg : UInt8? = nil
-	var shm : UInt8? = nil
-	var psy : UInt8? = nil
-	var med : UInt8? = nil
-	var mes : UInt8? = nil
-	var occ : UInt8? = nil
-	var spi : UInt8? = nil
-	var acid : Bool = false
-	var air : Bool = false
-	var chaotic : Bool = false
-	var cold : Bool = false
-	var curse : Bool = false
-	var darkness : Bool = false
-	var death : Bool = false
-	var disease : Bool = false
-	var earth : Bool = false
-	var electricity : Bool = false
-	var emotion : Bool = false
-	var evil : Bool = false
-	var fear : Bool = false
-	var fire : Bool = false
-	var force : Bool = false
-	var good : Bool = false
-	var language_dependent : Bool = false
-	var lawful : Bool = false
-	var light : Bool = false
-	var mind_affecting : Bool = false
-	var pain : Bool = false
-	var poison : Bool = false
-	var shadow : Bool = false
-	var sonic : Bool = false
-	var water : Bool = false
-	var mythic : Bool = false
-	var SR : String? = nil
-	var sr_no : Bool = false
-	var sr_yes : Bool = false
-	var sr_harmless : Bool = false
-	var sr_object : Bool = false
-	var sr_text : Bool = false
-	var saves : String? = nil
-	var fortNeg : Bool = false
-	var fortPart : Bool = false
-	var fortHalf : Bool = false
-	var refNeg : Bool = false
-	var refPart : Bool = false
-	var refHalf : Bool = false
-	var willNeg : Bool = false
-	var willPart : Bool = false
-	var willHalf : Bool = false
-	var willDis : Bool = false
-	var duration : String? = nil
-	var dur_instan : Bool = false
-	var dur_rds : Bool = false
-	var dur_mins : Bool = false
-	var dur_hours : Bool = false
-	var range : String? = nil
-	var rge_self : Bool = false
-	var rge_tch : Bool = false
-	var rge_close : Bool = false
-	var rge_med : Bool = false
-	var rge_long : Bool = false
-	var rge_feet : Int = 0
-	var target : String? = nil
-	var sglTarget : Bool = false
-	var targetPerCL : Bool = false
-	var effect : String? = nil
-	var emanation : Bool = false
-	var burst : Bool = false
-	var cone : Bool = false
-	var spread : Bool = false
-	var line : Bool = false
-	var cylinder : Bool = false
-	var bloodlines : String? = nil
-	var domains : String? = nil
-	var brisk : Bool = false
-	var empower : Bool = false
-	var intensify : Bool = false
-	var umbral : Bool = false
-	var vast : Bool = false
-	var widen : Bool = false
-	var yai : Bool = false
-	var hp_dmg : Bool = false
+	public var name : String = ""
+	public var school : Int = 0
+	public var subschool : Int? = nil
+	public var source: String? = nil
+	public var theme : String? = nil // NYI
+	public var verbal : Bool = false
+	public var somatic : Bool = false
+	public var material : Bool = false
+	public var focus : Bool = false
+	public var divFocus : Bool = false
+	public var cost : Int = 0
+	public var dismissible : Bool = false
+	public var shapeable : Bool = false
+	public var ct : String? = nil
+	public var ct_std : Bool = false
+	public var ct_swf : Bool = false
+	public var ct_immed : Bool = false
+	public var ct_free : Bool = false
+	public var ct_fullRd : Bool = false
+	public var ct_min : Bool = false
+	public var ct_hours : Bool = false
+	public var sor : UInt8? = nil
+	public var wiz : UInt8? = nil
+	public var clr : UInt8? = nil
+	public var drd : UInt8? = nil
+	public var rgr : UInt8? = nil
+	public var brd : UInt8? = nil
+	public var pal : UInt8? = nil
+	public var alc : UInt8? = nil
+	public var smn : UInt8? = nil
+	public var wit : UInt8? = nil
+	public var inq : UInt8? = nil
+	public var ora : UInt8? = nil
+	public var apal : UInt8? = nil
+	public var mag : UInt8? = nil
+	public var adp : UInt8? = nil
+	public var brg : UInt8? = nil
+	public var shm : UInt8? = nil
+	public var psy : UInt8? = nil
+	public var med : UInt8? = nil
+	public var mes : UInt8? = nil
+	public var occ : UInt8? = nil
+	public var spi : UInt8? = nil
+	public var acid : Bool = false
+	public var air : Bool = false
+	public var chaotic : Bool = false
+	public var cold : Bool = false
+	public var curse : Bool = false
+	public var darkness : Bool = false
+	public var death : Bool = false
+	public var disease : Bool = false
+	public var earth : Bool = false
+	public var electricity : Bool = false
+	public var emotion : Bool = false
+	public var evil : Bool = false
+	public var fear : Bool = false
+	public var fire : Bool = false
+	public var force : Bool = false
+	public var good : Bool = false
+	public var language_dependent : Bool = false
+	public var lawful : Bool = false
+	public var light : Bool = false
+	public var mind_affecting : Bool = false
+	public var pain : Bool = false
+	public var poison : Bool = false
+	public var shadow : Bool = false
+	public var sonic : Bool = false
+	public var water : Bool = false
+	public var mythic : Bool = false
+	public var SR : String? = nil
+	public var sr_no : Bool = false
+	public var sr_yes : Bool = false
+	public var sr_harmless : Bool = false
+	public var sr_object : Bool = false
+	public var sr_text : Bool = false
+	public var saves : String? = nil
+	public var fortNeg : Bool = false
+	public var fortPart : Bool = false
+	public var fortHalf : Bool = false
+	public var refNeg : Bool = false
+	public var refPart : Bool = false
+	public var refHalf : Bool = false
+	public var willNeg : Bool = false
+	public var willPart : Bool = false
+	public var willHalf : Bool = false
+	public var willDis : Bool = false
+	public var duration : String? = nil
+	public var dur_instan : Bool = false
+	public var dur_rds : Bool = false
+	public var dur_mins : Bool = false
+	public var dur_hours : Bool = false
+	public var range : String? = nil
+	public var rge_self : Bool = false
+	public var rge_tch : Bool = false
+	public var rge_close : Bool = false
+	public var rge_med : Bool = false
+	public var rge_long : Bool = false
+	public var rge_feet : Int = 0
+	public var target : String? = nil
+	public var sglTarget : Bool = false
+	public var targetPerCL : Bool = false
+	public var effect : String? = nil
+	public var emanation : Bool = false
+	public var burst : Bool = false
+	public var cone : Bool = false
+	public var spread : Bool = false
+	public var line : Bool = false
+	public var cylinder : Bool = false
+	public var bloodlines : String? = nil
+	public var domains : String? = nil
+	public var brisk : Bool = false
+	public var empower : Bool = false
+	public var intensify : Bool = false
+	public var umbral : Bool = false
+	public var vast : Bool = false
+	public var widen : Bool = false
+	public var yai : Bool = false
+	public var hp_dmg : Bool = false
 	
 	static let classIndex = 21
 	static let descIndex = 43
 	
 	/// String properties ct, SR, duration, range are ignored
-	static func == (lhs: SpellFields, rhs: SpellFields) -> Bool {
+	public static func == (lhs: SpellFields, rhs: SpellFields) -> Bool {
 		return lhs.name == rhs.name &&
 			lhs.school == rhs.school &&
 			lhs.subschool == rhs.subschool &&
@@ -252,7 +252,7 @@ public struct SpellFields : Sendable {
 			lhs.hp_dmg == rhs.hp_dmg
 	}
 	
-	subscript(idx: Int) -> Any? {
+	public subscript(idx: Int) -> Any? {
 		get {
 			switch idx {
 				case  0: return name
@@ -502,7 +502,7 @@ public struct SpellFields : Sendable {
 		}
 	}
 	
-	subscript(field: SpellDBFields) -> Any? {
+	public subscript(field: SpellDBFields) -> Any? {
 		get {
 			return switch field {
 				case .name:
@@ -752,26 +752,26 @@ public struct SpellFields : Sendable {
 
 
 extension SpellFields {
-	var sorcerer : UInt8? { return sor }
-	var wizard : UInt8? { return wiz }
-	var cleric : UInt8? { return clr }
-	var druid : UInt8? { return drd }
-	var ranger : UInt8? { return rgr }
-	var bard : UInt8? { return brd }
-	var paladin : UInt8? { return pal }
-	var alchemist : UInt8? { return alc }
-	var summoner : UInt8? { return smn }
-	var witch : UInt8? { return wit }
-	var inquisitor : UInt8? { return inq }
-	var oracle : UInt8? { return ora }
-	var antiPaladin : UInt8? { return apal }
-	var magus : UInt8? { return mag }
-	var adept : UInt8? { return adp }
-	var bloodrager : UInt8? { return brg }
-	var shaman : UInt8? { return shm }
-	var psychic : UInt8? { return psy }
-	var medium : UInt8? { return med }
-	var mesmerist : UInt8? { return mes }
-	var occultist : UInt8? { return occ }
-	var spiritualist : UInt8? { return spi }
+	public var sorcerer : UInt8? { return sor }
+	public var wizard : UInt8? { return wiz }
+	public var cleric : UInt8? { return clr }
+	public var druid : UInt8? { return drd }
+	public var ranger : UInt8? { return rgr }
+	public var bard : UInt8? { return brd }
+	public var paladin : UInt8? { return pal }
+	public var alchemist : UInt8? { return alc }
+	public var summoner : UInt8? { return smn }
+	public var witch : UInt8? { return wit }
+	public var inquisitor : UInt8? { return inq }
+	public var oracle : UInt8? { return ora }
+	public var antiPaladin : UInt8? { return apal }
+	public var magus : UInt8? { return mag }
+	public var adept : UInt8? { return adp }
+	public var bloodrager : UInt8? { return brg }
+	public var shaman : UInt8? { return shm }
+	public var psychic : UInt8? { return psy }
+	public var medium : UInt8? { return med }
+	public var mesmerist : UInt8? { return mes }
+	public var occultist : UInt8? { return occ }
+	public var spiritualist : UInt8? { return spi }
 }
