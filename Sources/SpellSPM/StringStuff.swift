@@ -478,7 +478,7 @@ extension String {
 extension Array where Element : StringProtocol {
 	/// Returns first index and length of longest string in array.
 	/// Will return nil if array is empty.
-	func longestString() -> (index: UInt, length: UInt)? {
+	public func longestString() -> (index: UInt, length: UInt)? {
 		if isEmpty { return nil }
 		
 		var len : UInt = 0
@@ -495,21 +495,21 @@ extension Array where Element : StringProtocol {
 	}
 	
 	/// Return lowercase version of string array.
-	func lowerCaseAll() -> [String] {
+	public func lowerCaseAll() -> [String] {
 		return self.map({ (S) -> String in
 			return S.lowercased()
 		})
 	}
 	
 	/// Return uppercase version of string array.
-	func upperCaseAll() -> [String] {
+	public func upperCaseAll() -> [String] {
 		return self.map({ (S) -> String in
 			return S.uppercased()
 		})
 	}
 	
 	/// Used for converting [Substring] to [String]
-	func toStringArray() -> [String] {
+	public func toStringArray() -> [String] {
 		var ary : [String] = []
 		for s in self {
 			ary.append(String(s))
@@ -522,14 +522,14 @@ extension Array where Element : StringProtocol {
 	///
 	/// - Parameter S: String to check
 	/// - Returns: true if is does
-	func containsCI(_ S: String) -> Bool {
+	public func containsCI(_ S: String) -> Bool {
 		for s in self {
 			if s.lowercased() == S.lowercased() { return true }
 		}
 		return false
 	}
 	
-	mutating func removeIfEmpty() {
+	mutating public func removeIfEmpty() {
 		self = self.filter { SP in
 			return !SP.isEmpty
 		}
@@ -540,12 +540,12 @@ extension Array where Element : StringProtocol {
 //-------------------------------------------------
 // MARK:- Number
 
-let suffix1024 = ["byte", "KiB", "MiB", "GiB", "TiB", "PiB"]
-let suffix1000 = ["byte", "KB", "MB", "GB", "TB", "PB"]
+public let suffix1024 = ["byte", "KiB", "MiB", "GiB", "TiB", "PiB"]
+public let suffix1000 = ["byte", "KB", "MB", "GB", "TB", "PB"]
 
 extension UInt {
 	
-	func byteString1024() -> String {
+	public func byteString1024() -> String {
 		if self < 1024 {
 			return "\(self) byte"
 		}
@@ -562,7 +562,7 @@ extension UInt {
 		return String(format: "%.2f %@", v, suffix1024[idx])
 	}
 	
-	func byteString1000() -> String {
+	public func byteString1000() -> String {
 		if self < 1000 {
 			return "\(self) byte"
 		}
@@ -580,12 +580,14 @@ extension UInt {
 	}
 }
 
-func AN<T: BinaryInteger>(_ v: T) -> String {
+/// Prepend '+' if integer is positive
+public func AN<T: BinaryInteger>(_ v: T) -> String {
 	if v >= T(0) { return "+\(v)" }
 	return "\(v)"
 }
 
-func SNS<T: FixedWidthInteger>(_ num: T) -> String {
+/// Prepend '+' if integer is positive
+public func SNS<T: FixedWidthInteger>(_ num: T) -> String {
 	if num > 0 { return "+\(num)"}
 	return "\(num)"
 }

@@ -23,6 +23,10 @@ public enum SpellSchools : String, CaseIterable, Sendable, Comparable {
 		return lhs.rawValue < rhs.rawValue
 	}
 	
+	
+	/// Return enum from passed string.
+	/// - Parameter string: compares with short and long school names.
+	/// - Returns: <#description#>
 	public static func from(string: String) -> SpellSchools? {
 		switch string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).lowercased() {
 			case "abj", "abjuration": return .abj

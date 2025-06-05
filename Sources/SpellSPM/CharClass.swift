@@ -54,6 +54,10 @@ extension CharClass {
 		"occ" : .occultist,		"spr" : .spiritualist,	"htr" : .hunter,		"arc" : .arcanist
 	]
 	
+	
+	/// Return enum from passed string. Can be full name or short name. Convenience function,
+	/// - Parameter strg: Uses lowercase comparison
+	/// - Returns: enum or nil if no comparison exists
 	public static func from(strg: String) -> CharClass? {
 		if let V = self.init(rawValue: strg.lowercased()) { return V }
 		return shortToEnum[strg.lowercased()]

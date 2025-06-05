@@ -22,12 +22,12 @@ protocol DBAccess : Actor {
 	func getAllNames(force: Bool) throws -> [String]
 	
 	/// Return spell names with passed SQL query
-	/// - Parameter query: SQLite query. Assumes WHERE is prefixed. To retrieve all names, pass an empty string.
+	/// - Parameter query: SQLite query. To retrieve all names, pass an empty string.
 	/// - Throws: `SpellsDBEx` any database errors
 	/// - Returns: Array of spell names
 	func getNamesWith(query: String) throws -> [String]
 	
-	/// Return int value for spell. If the table column is not an int an exception will be thrown.
+	/// Return int value for spell. If the table column is not an int throw an exception.
 	/// - Parameters:
 	///   - name: Spell name
 	///   - field: column name
@@ -37,7 +37,7 @@ protocol DBAccess : Actor {
 	/// - Returns: Int value of the spell and column. Note some coluimns are nullable, so nil can be returned.
 	func getSpellIntField(name: String, field: String) throws -> Int?
 	
-	/// Return string value for spell. If the table column is not a string an exception will be thrown.
+	/// Return string value for spell. If the table column is not a string, throw an exception.
 	/// - Parameters:
 	///   - name: Spell name
 	///   - field: column name
@@ -71,7 +71,7 @@ protocol DBAccess : Actor {
 	/// Return all columns of spell inside a `SpellField` struct.
 	/// - Parameter spell: Name of spell
 	/// - Throws: `SpellsDBEx.noSuchSpell` if spell does not exist.
-	/// 			'SpellsDBEx.err' for DB exceptions.
+	/// 			`SpellsDBEx.err` for DB exceptions.
 	/// - Returns: Spell metadata
 	func allFieldsFor(spell: String) throws -> SpellFields
 	
@@ -79,7 +79,7 @@ protocol DBAccess : Actor {
 	/// - Parameters:
 	///   - charClass: char class
 	///   - level: spell level
-	/// - Returns: All spells of passed spell level. If empty, then there are no spells for that level. Return nil if there is a database error.
+	/// - Returns: All spells of passed spell level. Return empty if there are no spells for that level. Return nil if there is a database error.
 	func allSpellsFor(charClass: CharClass, level: UInt8) -> Set<String>?
 	
 	

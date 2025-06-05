@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// All properties are readonly.
 public final class Spell : Hashable, Sendable {
 	public let name : String
 	
@@ -172,6 +173,7 @@ extension Spell {
 	//---------------------------
 	// MARK: Char Class
 	
+	/// Returns true if character class has spell in its spell list
 	public func isCharClass(_ cc: CharClass) -> Bool {
 		return switch cc {
 			case .sorcerer:
@@ -256,6 +258,7 @@ extension Spell {
 	
 	//---------------------------
 	
+	/// Returns true is spells has passed character class and spell level
 	func isClassLevel(_ cc: CharClass, lvl: UInt8) -> Bool {
 		if !isCharClass(cc) { return false }
 		return switch cc {
@@ -666,6 +669,8 @@ extension Spell {
 //------------------------------------------------
 // MARK: - Spell Storage
 
+/// Simple storage for Spell obejcts. Use `retrieveSpell()` if has the store check if DB if it does not have it cached.
+/// User `getSpell()` to see if the storage has the spell.
 public actor SpellStorage {
 	public init() throws {
 		spellDB = try SpellDBAccess()

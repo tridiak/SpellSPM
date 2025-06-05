@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Returned by DBAccess
 public struct SpellFields : Sendable {
 	public var name : String = ""
 	public var school : Int = 0
@@ -750,7 +751,7 @@ public struct SpellFields : Sendable {
 	}
 } // 118
 
-
+// Long name versions for character class accessors
 extension SpellFields {
 	public var sorcerer : UInt8? { return sor }
 	public var wizard : UInt8? { return wiz }
