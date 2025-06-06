@@ -6,6 +6,10 @@ Simple package which wraps an SQLite database containing Pathfinder 1e spells.
 
 This package assumes the developer has some knowledge of the Pathfinder RPG.
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftridiak%2FSpellSPM%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tridiak/SpellSPM)
+
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftridiak%2FSpellSPM%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/tridiak/SpellSPM)
+
 ## Installation
 
 ### SPM
