@@ -6,9 +6,9 @@ import PackageDescription
 let package = Package(
     name: "SpellSPM",
 	platforms: [
-		SupportedPlatform.iOS(.v13),
+		SupportedPlatform.iOS(.v16),
 		SupportedPlatform.macOS(SupportedPlatform.MacOSVersion.v13),
-		SupportedPlatform.tvOS(SupportedPlatform.TVOSVersion.v13)
+		SupportedPlatform.tvOS(SupportedPlatform.TVOSVersion.v16)
 	],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
